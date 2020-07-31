@@ -45,7 +45,8 @@ pen.hideturtle()
 pen.goto(0, 260)
 pen.write("Player A: 0 --- Player B: 0", align="center", font=("Veranda", 22, "normal"))
 
-
+score_a = 0
+score_b = 0
 
 # Functions
 def racket_a_up():
@@ -94,10 +95,17 @@ while True:
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dy *= -1
+        score_a += 1
+        pen.clear()
+        pen.write("Player A: {} --- Player B: {}".format(score_a, score_b),  align="center", font=("Veranda", 22, "normal"))
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dy *= -1
+        score_b += 1
+        pen.clear()
+        pen.write("Player A: {} --- Player B: {}".format(score_a, score_b), align="center",
+                  font=("Veranda", 22, "normal"))
 
     if ball.xcor() > 340 and ball.ycor() < racket_b.ycor() + 50 and ball.ycor() > racket_b.ycor() - 50:
         ball.dx *= -1
