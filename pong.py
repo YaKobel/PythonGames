@@ -85,3 +85,10 @@ while True:
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dy *= -1
+
+    if ball.xcor() > 340 and ball.ycor() < racket_b.ycor() + 50 and ball.ycor() > racket_b.ycor() - 50:
+        ball.dx *= -1
+
+    if ball.xcor() < -340 and ball.ycor() < racket_a.ycor() + 50 and ball.ycor() > racket_a.ycor() - 50:
+        ball.dx *= -1
+
