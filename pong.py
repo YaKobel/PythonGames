@@ -51,22 +51,34 @@ score_b = 0
 # Functions
 def racket_a_up():
     y = racket_a.ycor()
-    y += 20
+    if y > 250:
+        pass
+    else:
+        y += 20
     racket_a.sety(y)
 
 def racket_a_down():
     y = racket_a.ycor()
-    y -= 20
+    if y < -250:
+        pass
+    else:
+        y -= 20
     racket_a.sety(y)
 
 def racket_b_up():
     y = racket_b.ycor()
-    y += 20
+    if y > 250:
+        pass
+    else:
+        y += 20
     racket_b.sety(y)
 
 def racket_b_down():
     y = racket_b.ycor()
-    y -= 20
+    if y < -250:
+        pass
+    else:
+        y -= 20
     racket_b.sety(y)
 
 # keybord
