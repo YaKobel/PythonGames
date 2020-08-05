@@ -7,4 +7,15 @@ class Pawn(object):
     def __repr__(self):
         return ('♙','♟')[self.color]
 
-print(Pawn(1))
+class Board(object):
+    def __init__(self):
+        self.board = [['.'] * 8 for y in range(8)]
+        self.board[1][2] = Pawn(1)
+
+    def __repr__(self):
+        res = ''
+        for y in range(8):
+            res += ''.join(map(str, self.board[y])) + "\n"
+        return res
+
+print(Board())
