@@ -1,11 +1,27 @@
 #! -*- coding: utf-8 -*-
 
-class Pawn(object):
+class ChessMan(object):
     def __init__(self, color):
         self.color = color
 
     def __repr__(self):
         return ('♙','♟')[self.color]
+
+
+class Pawn(ChessMan):
+    IMG = ('♙', '♟')
+    def __repr__(self):
+        return ('♙','♟')[self.color]
+
+
+class King(ChessMan):
+    IMG = ('♔', '♚')
+
+    def get_moves(self, board, x, y):
+        moves = []
+        return moves
+
+
 
 class Board(object):
     def __init__(self):
