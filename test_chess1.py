@@ -1,4 +1,7 @@
 #! -*- coding: utf-8 -*-
+from abc import abstractmethod, ABCMeta
+
+THINKING_DEPTH = 4
 
 class Color(object):
     EMPTY = 0
