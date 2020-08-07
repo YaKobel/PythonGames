@@ -59,11 +59,22 @@ class Board(object):
         self.board[xy_to[1]][xy_to[0]] = self.board[xy_from[1]][xy_from[0]]
         self.board[xy_from[1]][xy_from[0]] = Empty()
 
-    def __repr__(self):
+    def __str__(self):
+        colors = [0, 47]
         res = ''
+        i = 0
         for y in range(8):
-            res += ''.join(map(str, self.board[y])) + "\n"
+            for x in range(8):
+                res += set_color(colors[i]) + str(self.board[y][x]) + ' '
+                i = 1 - i
+            i = 1 - i
+            res += set_color(0) + '\n'
         return res
+
+b = Board()
+
+def set_color(color):
+    return '\033[%sm' % color
 
 
 b = Board()
