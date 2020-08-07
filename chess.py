@@ -30,7 +30,7 @@ class Pawn(ChessMan):
     def get_moves(self, board, x, y):
         moves = []
         if self.color == Color.BLACK and y < 7 and board.get_color(x, y+1) == Color.EMPTY:
-            moves.append([x,y])
+            moves.append([x, y+1])
         return moves
 
 class King(ChessMan):
@@ -49,8 +49,15 @@ class Board(object):
         self.board[0][3] = King(Color.BLACK)
         self.board[7][3] = King(Color.WHITE)
 
-    def get_moves(self, board, x, y):
-        self.board[y][x].get_moves(self, x, y)
+    def get_color(self, x, y):
+        return self.board[y][x].color
+
+    def get_moves(self, x, y):
+        return self.board[y][x].get_moves(self, x, y)
+
+    def move(self,xy_from, xy_to):
+        self.board[xy_to[1]][xy_to[0]] = self.board[xy_from[1]][xy_from[0]]
+        self.board[xy_from[1]][xy_from[0]] = Empty()
 
     def __repr__(self):
         res = ''
@@ -58,4 +65,9 @@ class Board(object):
             res += ''.join(map(str, self.board[y])) + "\n"
         return res
 
-print(Board())
+
+b = Board()
+print(b)
+m = b.get_moves(2, 1)
+b.move([2,1], m[0])
+print(b)
