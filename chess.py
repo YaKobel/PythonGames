@@ -5,6 +5,15 @@ class Color(object):
     BLACK = 1
     WHITE = 2
 
+class Empty(object):
+    color = Color.EMPTY
+
+    def get_moves(self, board, x, y):
+        raise Exception('Error !')
+
+    def __repr__(self):
+        return '.'
+
 class ChessMan(object):
     IMG = None
 
@@ -35,10 +44,13 @@ class King(ChessMan):
 
 class Board(object):
     def __init__(self):
-        self.board = [['.'] * 8 for y in range(8)]
-        self.board[1][2] = Pawn(1)
-        self.board[0][3] = King(1)
-        self.board[7][3] = King(0)
+        self.board = [[Empty()] * 8 for y in range(8)]
+        self.board[1][2] = Pawn(Color.BLACK)
+        self.board[0][3] = King(Color.BLACK)
+        self.board[7][3] = King(Color.WHITE)
+
+    def get_moves(self, board, x, y):
+        self.board[y][x].get_moves(self, x, y)
 
     def __repr__(self):
         res = ''
