@@ -12,18 +12,21 @@ pygame.display.set_caption('Run Dino! Run!')
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
 
+cactus_img = [pygame.image.load('Cactus0.png'), pygame.image.load('Cactus1.png'), pygame.image.load('Cactus2.png')]
 
 class Cactus:
-    def __init__(self, x, y, width, height, speed):
+    def __init__(self, x, y, width, height, image, speed):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.image = image
         self.speed = speed
 
     def move(self):
         if self.x >= -self.width:
-            pygame.draw.rect(display, (224, 44, 64), (self.x, self.y, self.width, self.height))
+            display.blit(self.image, (self.x, self.y))
+            # pygame.draw.rect(display, (224, 44, 64), (self.x, self.y, self.width, self.height))
             self.x -= self.speed
             return True
         else:
@@ -57,6 +60,7 @@ def run_game():
     game = True
     cactus_arr = []
     create_cactus_arr(cactus_arr)
+    land = pygame.image.load(r'Land.jpg')
 
     while game:
         for event in pygame.event.get():
@@ -71,10 +75,8 @@ def run_game():
         if make_jump:
             jump()
 
-
-        display.fill((255, 255, 255))
+        display.blit(land, (0, 0))
         draw_array(cactus_arr)
-
 
         pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
 
