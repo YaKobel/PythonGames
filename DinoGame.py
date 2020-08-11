@@ -25,8 +25,14 @@ class Cactus:
         if self.x >= -self.width:
             pygame.draw.rect(display, (224, 44, 64), (self.x, self.y, self.width, self.height))
             self.x -= self.speed
+            return True
         else:
-            self.x = display_width + 100 + random.randrange(-80, 60)
+            # self.x = display_width + 100 + random.randrange(-80, 60)
+            return False
+
+    def return_self(self, radius):
+        self.x = radius
+
 
 
 usr_width = 60
@@ -91,9 +97,32 @@ def create_cactus_arr(array):
     array.append(Cactus(display_width + 300, display_height - 150, 30, 50, 4))
     array.append(Cactus(display_width + 600, display_height - 180, 25, 80, 4))
 
+
+def find_radius(array):
+    maximum = max(array[0].x, array[1].x, array[2].x)
+
+    if maximum < display_width:
+        radius = display_width
+        if radius - maximum < 50:
+            radius += 150
+    else:
+        radius = maximum
+
+    choice = random.randrange(0, 5)
+    if choice == 0:
+        radius += random.randrange(10, 15)
+    else:
+        radius += random.randrange(200, 350)
+
+    return radius
+
+
 def draw_array(array):
     for cactus in array:
-        cactus.move()
+        check = cactus.move()
+        if not check:
+            radius = find_radius(array)
+            cactus.return_self(radius)
 
 
 run_game()
