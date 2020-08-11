@@ -11,6 +11,11 @@ pygame.display.set_caption('Run Dino! Run!')
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
 
+usr_width = 60
+usr_height = 100
+usr_x = display_width // 3
+usr_y = display_height - usr_height - 100
+
 
 def run_game():
     game = True
@@ -22,6 +27,9 @@ def run_game():
                 quit()
 
         display.fill((255, 255, 255))
+
+        pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
+
         pygame.display.update()
 
 run_game()
