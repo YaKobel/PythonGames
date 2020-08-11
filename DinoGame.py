@@ -11,6 +11,23 @@ pygame.display.set_caption('Run Dino! Run!')
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
 
+
+class Cactus:
+    def __init__(self, x, y, width, height, speed):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.speed = speed
+
+    def move(self):
+        if self.x >= -self.width:
+            pygame.draw.rect(display, (224, 44, 64), (self.x, self.y, self.width, self.height))
+            self.x -= self.speed
+        else:
+            self.x = display_width - 50
+
+
 usr_width = 60
 usr_height = 100
 usr_x = display_width // 3
@@ -47,12 +64,12 @@ def run_game():
 
 
         display.fill((255, 255, 255))
-        draw_cactus()
+
 
         pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(80)
 
 
 def jump():
@@ -63,15 +80,6 @@ def jump():
     else:
         jump_counter = 30
         make_jump = False
-
-def draw_cactus():
-    global cactus_x, cactus_y, cactus_width, cactus_height
-
-    if cactus_x >= -cactus_width:
-        pygame.draw.rect(display, (224, 44, 64), (cactus_x, cactus_y, cactus_width, cactus_height))
-        cactus_x -= 4
-    else:
-        cactus_x = display_width - 50
 
 
 
