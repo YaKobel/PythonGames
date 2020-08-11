@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -25,7 +26,7 @@ class Cactus:
             pygame.draw.rect(display, (224, 44, 64), (self.x, self.y, self.width, self.height))
             self.x -= self.speed
         else:
-            self.x = display_width - 50
+            self.x = display_width + 100 + random.randrange(-80, 60)
 
 
 usr_width = 60
@@ -48,6 +49,8 @@ jump_counter = 30
 def run_game():
     global make_jump
     game = True
+    cactus_arr = []
+    create_cactus_arr(cactus_arr)
 
     while game:
         for event in pygame.event.get():
@@ -64,6 +67,7 @@ def run_game():
 
 
         display.fill((255, 255, 255))
+        draw_array(cactus_arr)
 
 
         pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
@@ -81,6 +85,15 @@ def jump():
         jump_counter = 30
         make_jump = False
 
+
+def create_cactus_arr(array):
+    array.append(Cactus(display_width + 20, display_height - 170, 20, 70, 4))
+    array.append(Cactus(display_width + 300, display_height - 150, 30, 50, 4))
+    array.append(Cactus(display_width + 600, display_height - 180, 25, 80, 4))
+
+def draw_array(array):
+    for cactus in array:
+        cactus.move()
 
 
 run_game()
