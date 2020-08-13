@@ -16,11 +16,10 @@ cactus_img = [pygame.image.load('Cactus0.png'), pygame.image.load('Cactus1.png')
 cactus_option = [69, 449, 37, 410, 40, 420]
 
 class Cactus:
-    def __init__(self, x, y, width, height, image, speed):
+    def __init__(self, x, y, width, image, speed):
         self.x = x
         self.y = y
         self.width = width
-        self.height = height
         self.image = image
         self.speed = speed
 
@@ -34,8 +33,12 @@ class Cactus:
             # self.x = display_width + 100 + random.randrange(-80, 60)
             return False
 
-    def return_self(self, radius):
+    def return_self(self, radius, y, width, image):
         self.x = radius
+        self.y = y
+        self.width = display_width
+        self.image = image
+        display.blit(self.image, (self.x, self.y))
 
 
 
@@ -100,9 +103,19 @@ def create_cactus_arr(array):
     img = cactus_img[choice]
     width = cactus_option[choice * 2]
     height = cactus_option[choice * 2 + 1]
-    array.append(Cactus(display_width + 20, display_height - 170, 20, 70, 4))
-    array.append(Cactus(display_width + 300, display_height - 150, 30, 50, 4))
-    array.append(Cactus(display_width + 600, display_height - 180, 25, 80, 4))
+    array.append(Cactus(display_width + 20, height, width, img, 4))
+
+    choice = random.randrange(0, 3)
+    img = cactus_img[choice]
+    width = cactus_option[choice * 2]
+    height = cactus_option[choice * 2 + 1]
+    array.append(Cactus(display_width + 300, height, width, img, 4))
+
+    choice = random.randrange(0, 3)
+    img = cactus_img[choice]
+    width = cactus_option[choice * 2]
+    height = cactus_option[choice * 2 + 1]
+    array.append(Cactus(display_width + 600, height, width, img, 4))
 
 
 def find_radius(array):
