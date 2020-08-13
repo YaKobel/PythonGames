@@ -30,13 +30,13 @@ class Cactus:
             self.x -= self.speed
             return True
         else:
-            # self.x = display_width + 100 + random.randrange(-80, 60)
+            # self.x = display_width + 100 + random. randrange(-80, 60)
             return False
 
     def return_self(self, radius, y, width, image):
         self.x = radius
         self.y = y
-        self.width = display_width
+        self.width = width
         self.image = image
         display.blit(self.image, (self.x, self.y))
 
@@ -142,7 +142,13 @@ def draw_array(array):
         check = cactus.move()
         if not check:
             radius = find_radius(array)
-            cactus.return_self(radius)
+
+            choice = random.randrange(0, 3)
+            img = cactus_img[choice]
+            width = cactus_option[choice * 2]
+            height = cactus_option[choice * 2 + 1]
+
+            cactus.return_self(radius, height, width, img)
 
 
 run_game()
