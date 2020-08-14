@@ -19,7 +19,7 @@ stone_img = [pygame.image.load('Stone0.png'), pygame.image.load('Stone1.png')]
 cloud_img = [pygame.image.load('Cloud0.png'), pygame.image.load('Cloud1.png')]
 
 
-class Cactus:
+class Object:
     def __init__(self, x, y, width, image, speed):
         self.x = x
         self.y = y
@@ -30,11 +30,9 @@ class Cactus:
     def move(self):
         if self.x >= -self.width:
             display.blit(self.image, (self.x, self.y))
-            # pygame.draw.rect(display, (224, 44, 64), (self.x, self.y, self.width, self.height))
             self.x -= self.speed
             return True
         else:
-            # self.x = display_width + 100 + random. randrange(-80, 60)
             return False
 
     def return_self(self, radius, y, width, image):
@@ -43,7 +41,6 @@ class Cactus:
         self.width = width
         self.image = image
         display.blit(self.image, (self.x, self.y))
-
 
 
 usr_width = 60
@@ -55,7 +52,6 @@ cactus_width = 20
 cactus_height = 70
 cactus_x = display_width - 50
 cactus_y = display_height - cactus_height - 100
-
 
 clock = pygame.time.Clock()
 
@@ -69,6 +65,8 @@ def run_game():
     cactus_arr = []
     create_cactus_arr(cactus_arr)
     land = pygame.image.load(r'Land.jpg')
+
+    stone, cloud = open_random_objects()
 
     while game:
         for event in pygame.event.get():
@@ -85,11 +83,12 @@ def run_game():
 
         display.blit(land, (0, 0))
         draw_array(cactus_arr)
+        move_objects(ctone, cloud)
 
         pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
 
         pygame.display.update()
-        clock.tick(80)
+        clock.tick(70)
 
 
 def jump():
@@ -107,19 +106,19 @@ def create_cactus_arr(array):
     img = cactus_img[choice]
     width = cactus_option[choice * 2]
     height = cactus_option[choice * 2 + 1]
-    array.append(Cactus(display_width + 20, height, width, img, 4))
+    array.append(Object(display_width + 20, height, width, img, 4))
 
     choice = random.randrange(0, 3)
     img = cactus_img[choice]
     width = cactus_option[choice * 2]
     height = cactus_option[choice * 2 + 1]
-    array.append(Cactus(display_width + 300, height, width, img, 4))
+    array.append(Object(display_width + 300, height, width, img, 4))
 
     choice = random.randrange(0, 3)
     img = cactus_img[choice]
     width = cactus_option[choice * 2]
     height = cactus_option[choice * 2 + 1]
-    array.append(Cactus(display_width + 600, height, width, img, 4))
+    array.append(Object(display_width + 600, height, width, img, 4))
 
 
 def find_radius(array):
@@ -160,6 +159,25 @@ def open_random_objects(stone, cloud):
 
     choice = random.randrange(0, 2)
     img_of_cloud = cloud_img[choice]
+
+    stone = Object(display_width, display_height - 80, 10, img_of_stone, 4)
+    cloud = Object(display_width, display_height, 80, 10, img_of_cloud, 2)
+
+    return stone, cloud
+
+def move_objects(stone, cloud):
+    check = stone.move()
+    if not check:
+        choice = random.randrange(0, 2)
+        img_of_stone = stone_img[choice]
+        stone.return_self(display_width, 500 + random.randrange(10, 80), stone.width, img_of_stone)
+
+    check = cloud.move()
+    if not check:
+        choice = random.randrange(0, 2)
+        img_of_cloud = cloud_img[choice]
+        cloud.return_self(display_width, 500 + random.randrange(10, 200), cloud.width, img_of_cloud)
+
 
 run_game()
 
