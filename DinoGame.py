@@ -15,6 +15,10 @@ pygame.display.set_icon(icon)
 cactus_img = [pygame.image.load('Cactus0.png'), pygame.image.load('Cactus1.png'), pygame.image.load('Cactus2.png')]
 cactus_option = [69, 449, 37, 410, 40, 420]
 
+stone_img = [pygame.image.load('Stone0.png'), pygame.image.load('Stone1.png')]
+cloud_img = [pygame.image.load('Cloud0.png'), pygame.image.load('Cloud1.png')]
+
+
 class Cactus:
     def __init__(self, x, y, width, image, speed):
         self.x = x
@@ -150,6 +154,12 @@ def draw_array(array):
 
             cactus.return_self(radius, height, width, img)
 
+def open_random_objects(stone, cloud):
+    choice = random.randrange(0, 2)
+    img_of_stone = stone_img[choice]
+
+    choice = random.randrange(0, 2)
+    img_of_cloud = cloud_img[choice]
 
 run_game()
 
