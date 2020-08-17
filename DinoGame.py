@@ -89,7 +89,8 @@ def run_game():
         draw_array(cactus_arr)
         move_objects(stone, cloud)
 
-        pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
+        #pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
+        draw_dino()
 
         pygame.display.update()
         clock.tick(70)
@@ -191,6 +192,11 @@ def draw_dino():
 
     display.blit(dino_img[img_counter // 5], (usr_x, usr_y))
     img_counter += 1
+
+def print_text(message, x, y, font_color = (0, 0, 0),  font_type = 'PingPong.ttf', font_size = 30):
+    font_type = pygame.font.Font(font_type, font_size)
+    text = font_type.render(message,True, font_color)
+    display.blit(text, (x, y))
 
 
 run_game()
