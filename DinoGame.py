@@ -87,7 +87,7 @@ def run_game():
 
         display.blit(land, (0, 0))
         draw_array(cactus_arr)
-        move_objects(ctone, cloud)
+        move_objects(stone, cloud)
 
         pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
 
@@ -157,7 +157,7 @@ def draw_array(array):
 
             cactus.return_self(radius, height, width, img)
 
-def open_random_objects(stone, cloud):
+def open_random_objects():
     choice = random.randrange(0, 2)
     img_of_stone = stone_img[choice]
 
@@ -165,9 +165,10 @@ def open_random_objects(stone, cloud):
     img_of_cloud = cloud_img[choice]
 
     stone = Object(display_width, display_height - 80, 10, img_of_stone, 4)
-    cloud = Object(display_width, display_height, 80, 10, img_of_cloud, 2)
+    cloud = Object(display_width,  80, 70, img_of_cloud, 2)
 
     return stone, cloud
+
 
 def move_objects(stone, cloud):
     check = stone.move()
@@ -185,10 +186,10 @@ def move_objects(stone, cloud):
 
 def draw_dino():
     global img_counter
-    if img_counter == 5:
+    if img_counter == 25:
         img_counter = 0
 
-    display.blit(dino_img[img_counter], (usr_x, usr_y))
+    display.blit(dino_img[img_counter // 5], (usr_x, usr_y))
     img_counter += 1
 
 
