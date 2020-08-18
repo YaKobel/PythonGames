@@ -81,7 +81,7 @@ def run_game():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             make_jump = True
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_ESCAPE]:
             pause()
 
         if make_jump:
@@ -184,7 +184,7 @@ def move_objects(stone, cloud):
     if not check:
         choice = random.randrange(0, 2)
         img_of_cloud = cloud_img[choice]
-        cloud.return_self(display_width, 500 + random.randrange(10, 200), cloud.width, img_of_cloud)
+        cloud.return_self(display_width, random.randrange(10, 200), cloud.width, img_of_cloud)
 
 
 def draw_dino():
@@ -200,6 +200,7 @@ def print_text(message, x, y, font_color=(0, 0, 0),  font_type='PingPong.ttf', f
     font_type = pygame.font.Font(font_type, font_size)
     text = font_type.render(message, True, font_color)
     display.blit(text, (x, y))
+
 
 def pause():
     paused = True
