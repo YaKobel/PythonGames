@@ -222,7 +222,7 @@ def pause():
         pygame.display.update()
         clock.tick(15)
 
-def check_collision(barrier):
+def check_collision(barriers):
     for barrier in barriers:
         if usr_y + usr_height >= barrier.y:
             if barrier.x <= usr_x <= barrier.x + barrier.width:
@@ -233,13 +233,13 @@ def check_collision(barrier):
 
 def game_over():
     stopped = True
-    while paused:
+    while stopped:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
-        print_text('Game Over. Press Enter to play again, Esc to exit', 100, 300)
+        print_text('Game Over. Press Enter to play again, Esc to exit', 50, 300)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RETURN]:
@@ -254,4 +254,6 @@ def game_over():
 
 while run_game():
     pass
+pygame.quit()
+quit()
 
