@@ -87,18 +87,18 @@ def run_game():
         if make_jump:
             jump()
 
-        if check_collision(cactus_arr):
-            game = False
-
         display.blit(land, (0, 0))
         draw_array(cactus_arr)
         move_objects(stone, cloud)
 
-        #pygame.draw.rect(display, (247, 240, 22), (usr_x, usr_y, usr_width, usr_height))
         draw_dino()
+
+        if check_collision(cactus_arr):
+            game = False
 
         pygame.display.update()
         clock.tick(70)
+    return game_over()
 
 
 def jump():
@@ -231,5 +231,27 @@ def check_collision(barrier):
                 return True
         return False
 
-run_game()
+def game_over():
+    stopped = True
+    while paused:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        print_text('Game Over. Press Enter to play again, Esc to exit', 100, 300)
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]:
+            return False
+        if keys[pygame.K_ESCAPE]:
+            return False
+
+        pygame.display.update()
+        clock.tick(15)
+
+
+
+while run_game():
+    pass
 
