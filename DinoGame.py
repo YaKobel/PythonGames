@@ -87,6 +87,9 @@ def run_game():
         if make_jump:
             jump()
 
+        if check_collision(cactus_arr):
+            game = False
+
         display.blit(land, (0, 0))
         draw_array(cactus_arr)
         move_objects(stone, cloud)
@@ -219,6 +222,14 @@ def pause():
         pygame.display.update()
         clock.tick(15)
 
+def check_collision(barrier):
+    for barrier in barriers:
+        if usr_y + usr_height >= barrier.y:
+            if barrier.x <= usr_x <= barrier.x + barrier.width:
+                return True
+            elif barrier.x <= usr_x + usr_width <= barrier.x + barrier.width:
+                return True
+        return False
 
 run_game()
 
