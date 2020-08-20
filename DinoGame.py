@@ -232,14 +232,27 @@ def check_collision(barriers):
                 if usr_y + usr_height - 5 >= barrier.y:
                     if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
                         return True
-
-
-        '''if usr_y + usr_height >= barrier.y:
-            if barrier.x <= usr_x <= barrier.x + barrier.width:
-                return True
-            elif barrier.x <= usr_x + usr_width <= barrier.x + barrier.width:
-                return True
-        return False'''
+            else:
+                if usr_y + usr_height - 10 >= barrier.y:
+                    if barrier.x <= usr_x <= barrier.x - barrier.width:
+                        return True
+        else:
+            if not make_jump:
+                if barrier.x <= usr_x + usr_width - 5 <= barrier.x - barrier.width:
+                    return True
+            elif jump_counter == 10:
+                if usr_y + usr_height - 5 >= barrier.y:
+                    if barrier.x <= usr_x + usr_width - 5 <= barrier.x - barrier.width:
+                        return True
+            elif jump_counter >= -1:
+                if usr_y + usr_height - 5 >= barrier.y:
+                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
+                        return True
+                else:
+                    if usr_y + usr_height - 10 >= barrier.y:
+                        if barrier.x <= usr_x +  5 <= barrier.x - barrier.width:
+                            return True
+        return False
 
 def game_over():
     stopped = True
