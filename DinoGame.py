@@ -224,12 +224,22 @@ def pause():
 
 def check_collision(barriers):
     for barrier in barriers:
-        if usr_y + usr_height >= barrier.y:
+        if barrier.y == 449: # Little cactus
+            if not make_jump:
+                if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
+                    return True
+            elif jump_counter >= 0:
+                if usr_y + usr_height - 5 >= barrier.y:
+                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
+                        return True
+
+
+        '''if usr_y + usr_height >= barrier.y:
             if barrier.x <= usr_x <= barrier.x + barrier.width:
                 return True
             elif barrier.x <= usr_x + usr_width <= barrier.x + barrier.width:
                 return True
-        return False
+        return False'''
 
 def game_over():
     stopped = True
