@@ -62,6 +62,8 @@ clock = pygame.time.Clock()
 make_jump = False
 jump_counter = 30
 
+scores = 0
+
 
 def run_game():
     global make_jump
@@ -88,6 +90,8 @@ def run_game():
             jump()
 
         display.blit(land, (0, 0))
+        print_text('Scores: ' + str(scores), 600, 10)
+
         draw_array(cactus_arr)
         move_objects(stone, cloud)
 
