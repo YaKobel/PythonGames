@@ -226,35 +226,36 @@ def pause():
         pygame.display.update()
         clock.tick(15)
 
+
 def check_collision(barriers):
     for barrier in barriers:
-        if barrier.y == 449: # Little cactus
+        if barrier.y == 449:  # Little cactus
             if not make_jump:
                 if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
                     return True
             elif jump_counter >= 0:
                 if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
+                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
                         return True
             else:
                 if usr_y + usr_height - 10 >= barrier.y:
-                    if barrier.x <= usr_x <= barrier.x - barrier.width:
+                    if barrier.x <= usr_x <= barrier.x + barrier.width:
                         return True
         else:
             if not make_jump:
-                if barrier.x <= usr_x + usr_width - 5 <= barrier.x - barrier.width:
+                if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
                     return True
             elif jump_counter == 10:
                 if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 5 <= barrier.x - barrier.width:
+                    if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
                         return True
             elif jump_counter >= -1:
                 if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
+                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
                         return True
                 else:
                     if usr_y + usr_height - 10 >= barrier.y:
-                        if barrier.x <= usr_x +  5 <= barrier.x - barrier.width:
+                        if barrier.x <= usr_x + 5 <= barrier.x + barrier.width:
                             return True
         return False
 
