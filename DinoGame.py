@@ -63,6 +63,7 @@ make_jump = False
 jump_counter = 30
 
 scores = 0
+max_scores = 0
 above_cactus = False
 
 
@@ -279,6 +280,10 @@ def count_scores(barriers):
 
 
 def game_over():
+    global scores, max_scores
+    if scores > max_scores:
+        max_scores = scores
+
     stopped = True
     while stopped:
         for event in pygame.event.get():
@@ -287,6 +292,7 @@ def game_over():
                 quit()
 
         print_text('Game Over. Press Enter to play again, Esc to exit', 50, 300)
+        print_text('Max Scores: ' + str(max_scores), 300, 350)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RETURN]:
