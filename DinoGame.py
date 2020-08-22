@@ -300,7 +300,10 @@ def game_over():
 
 
 while run_game():
-    pass
+    scores = 0
+    make_jump = False
+    jump_counter = 30
+    usr_y = display_height - usr_height - 100
 pygame.quit()
 quit()
 
