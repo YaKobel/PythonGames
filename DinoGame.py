@@ -63,6 +63,7 @@ make_jump = False
 jump_counter = 30
 
 scores = 0
+above_cactus = False
 
 
 def run_game():
@@ -88,6 +89,8 @@ def run_game():
 
         if make_jump:
             jump()
+
+        count_scores(cactus_arr)
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
@@ -258,6 +261,22 @@ def check_collision(barriers):
                         if barrier.x <= usr_x + 5 <= barrier.x + barrier.width:
                             return True
         return False
+
+def count_scores(barriers):
+    global scores, above_cactus
+
+    if not above_cactus:
+        for barrier in barriers:
+            if barrier.x <= usr_x + usr_width / 2 <= barrier.x + barrier.width:
+                if usr_y + usr_height - 5 <= barrier.y:
+                    above_cactus = True
+                    break
+    else:
+        if jump_counter == -30:
+            scores += 1
+            above_cactus = False
+
+
 
 def game_over():
     stopped = True
