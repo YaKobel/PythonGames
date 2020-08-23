@@ -64,7 +64,8 @@ jump_counter = 30
 
 scores = 0
 max_scores = 0
-above_cactus = False
+max_above = 0
+
 
 
 def run_game():
@@ -145,7 +146,7 @@ def find_radius(array):
     if maximum < display_width:
         radius = display_width
         if radius - maximum < 50:
-            radius += 150
+            radius += 250
     else:
         radius = maximum
 
@@ -264,19 +265,22 @@ def check_collision(barriers):
         return False
 
 def count_scores(barriers):
-    global scores, above_cactus
+    global scores, max_above
+    above_cactus = 0
 
-    if not above_cactus:
+    if -20 <= jump_counter < 25:
         for barrier in barriers:
-            if barrier.x <= usr_x + usr_width / 2 <= barrier.x + barrier.width:
-                if usr_y + usr_height - 5 <= barrier.y:
-                    above_cactus = True
-                    break
+            if usr_y + usr_height - 5 <= barrier.y:
+                if barrier.x <= usr_x <= barrier.x + barrier.width:
+                    above_cactus += 1
+                elif barrier.x <= usr_x + usr_width <= barrier.x + barrier.width:
+                    above_cactus += 1
+
+        max_above = max(max_above, above_cactus)
     else:
         if jump_counter == -30:
-            scores += 1
-            above_cactus = False
-
+            scores += max_above
+            max_above = 0
 
 
 def game_over():
