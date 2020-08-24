@@ -9,6 +9,9 @@ display_height = 600
 display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Run Dino! Run!')
 
+pygame.mixer.music.load('background.mp3')
+pygame.mixer.music.set_volume(0.3)
+
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
 
@@ -70,6 +73,9 @@ max_above = 0
 
 def run_game():
     global make_jump
+
+    pygame.mixer.music.play(-1)
+
     game = True
     cactus_arr = []
     create_cactus_arr(cactus_arr)
@@ -103,6 +109,7 @@ def run_game():
         draw_dino()
 
         if check_collision(cactus_arr):
+            pygame.mixer.music.stop()
             game = False
 
         pygame.display.update()
@@ -154,7 +161,7 @@ def find_radius(array):
     if choice == 0:
         radius += random.randrange(10, 15)
     else:
-        radius += random.randrange(200, 350)
+        radius += random.randrange(250, 400)
 
     return radius
 
@@ -216,6 +223,9 @@ def print_text(message, x, y, font_color=(0, 0, 0),  font_type='PingPong.ttf', f
 
 def pause():
     paused = True
+
+    pygame.mixer.music.pause()
+
     while paused:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -230,6 +240,8 @@ def pause():
 
         pygame.display.update()
         clock.tick(15)
+
+    pygame.mixer.music.unpause()
 
 
 def check_collision(barriers):
