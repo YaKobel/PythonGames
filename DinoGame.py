@@ -12,8 +12,8 @@ pygame.display.set_caption('Run Dino! Run!')
 pygame.mixer.music.load('background.mp3')
 pygame.mixer.music.set_volume(0.3)
 
-jump_sound = pygame.mixer.Sound('Rrr.wav')
-fall_sound = pygame.mixer.Sound('Bdish.wav')
+jump_sound = pygame.mixer.Sound('Rrr.mp3')
+fall_sound = pygame.mixer.Sound('Bdish.mp3')
 
 
 icon = pygame.image.load('icon.png')
@@ -126,7 +126,7 @@ def jump():
     if jump_counter >= -30:
         if jump_counter == 30:
             pygame.mixer.Sound.play(jump_sound)
-        if jump_sound == -10:
+        if jump_sound == -26:
             pygame.mixer.Sound.play(fall_sound)
 
         usr_y -= jump_counter / 2.5
