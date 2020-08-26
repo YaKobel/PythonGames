@@ -27,7 +27,11 @@ cloud_img = [pygame.image.load('Cloud0.png'), pygame.image.load('Cloud1.png')]
 
 dino_img = [pygame.image.load('Dino0.png'), pygame.image.load('Dino1.png'), pygame.image.load('Dino2.png'),
             pygame.image.load('Dino3.png'), pygame.image.load('Dino4.png')]
+
+heart_img = pygame.image.load('heart.png')
+
 img_counter = 0
+health = 2
 
 
 class Object:
@@ -105,6 +109,7 @@ def run_game():
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
+        show_heaith()
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
@@ -328,7 +333,13 @@ def game_over():
         pygame.display.update()
         clock.tick(15)
 
-
+def show_heaith():
+    global health
+    show = 0
+    while show != health:
+        display.blit(heart_img, (x, 20))
+        x += 40
+        show += 1
 
 while run_game():
     scores = 0
