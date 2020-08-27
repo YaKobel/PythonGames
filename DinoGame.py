@@ -12,7 +12,7 @@ pygame.display.set_caption('Run Dino! Run!')
 pygame.mixer.music.load('background.mp3')
 pygame.mixer.music.set_volume(0.3)
 
-jump_sound = pygame.mixer.Sound('Rrr.mp3')
+jump_sound = pygame.mixer.Sound('Rrr.wma')
 fall_sound = pygame.mixer.Sound('Bdish.mp3')
 
 
@@ -29,6 +29,7 @@ dino_img = [pygame.image.load('Dino0.png'), pygame.image.load('Dino1.png'), pyga
             pygame.image.load('Dino3.png'), pygame.image.load('Dino4.png')]
 
 heart_img = pygame.image.load('heart.png')
+heart_img = pygame.transform.scale(heart_img, (30, 30))
 
 img_counter = 0
 health = 2
@@ -109,7 +110,7 @@ def run_game():
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
-        show_heaith()
+        show_health()
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
@@ -333,9 +334,11 @@ def game_over():
         pygame.display.update()
         clock.tick(15)
 
-def show_heaith():
+
+def show_health():
     global health
     show = 0
+    x = 20
     while show != health:
         display.blit(heart_img, (x, 20))
         x += 40
