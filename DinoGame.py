@@ -12,8 +12,8 @@ pygame.display.set_caption('Run Dino! Run!')
 pygame.mixer.music.load('background.mp3')
 pygame.mixer.music.set_volume(0.3)
 
-jump_sound = pygame.mixer.Sound('Rrr.wma')
-fall_sound = pygame.mixer.Sound('Bdish.mp3')
+jump_sound = pygame.mixer.Sound('Rrr.wav')
+fall_sound = pygame.mixer.Sound('Bdish.wav')
 
 
 icon = pygame.image.load('icon.png')
@@ -77,7 +77,6 @@ jump_counter = 30
 scores = 0
 max_scores = 0
 max_above = 0
-
 
 
 def run_game():
@@ -193,6 +192,7 @@ def draw_array(array):
             height = cactus_option[choice * 2 + 1]
 
             cactus.return_self(radius, height, width, img)
+
 
 def open_random_objects():
     choice = random.randrange(0, 2)
