@@ -82,7 +82,7 @@ max_above = 0
 
 def run_game():
     global make_jump
-    # pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
 
     game = True
     cactus_arr = []
@@ -118,7 +118,7 @@ def run_game():
         draw_dino()
 
         if check_collision(cactus_arr):
-            # pygame.mixer.music.stop()
+            pygame.mixer.music.stop()
             pygame.mixer.Sound.play(fall_sound)
             game = False
 
@@ -239,7 +239,7 @@ def print_text(message, x, y, font_color=(0, 0, 0),  font_type='PingPong.ttf', f
 def pause():
     paused = True
 
-    # pygame.mixer.music.pause()
+    pygame.mixer.music.pause()
 
     while paused:
         for event in pygame.event.get():
@@ -256,7 +256,7 @@ def pause():
         pygame.display.update()
         clock.tick(15)
 
-    # pygame.mixer.music.unpause()
+    pygame.mixer.music.unpause()
 
 
 def check_collision(barriers):
