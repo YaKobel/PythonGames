@@ -12,8 +12,9 @@ pygame.display.set_caption('Run Dino! Run!')
 pygame.mixer.music.load('background.mp3')
 pygame.mixer.music.set_volume(0.3)
 
-jump_sound = pygame.mixer.Sound('Rrr.wav')
-fall_sound = pygame.mixer.Sound('Bdish.wav')
+jump_sound = pygame.mixer.Sound('jump.wav')
+fall_sound = pygame.mixer.Sound('sfx3.wav')
+loss_sound = pygame.mixer.Sound('Bdish.wav')
 
 
 icon = pygame.image.load('icon.png')
@@ -32,7 +33,7 @@ heart_img = pygame.image.load('heart.png')
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 
 img_counter = 0
-health = 2
+health = 5
 
 
 class Object:
@@ -118,8 +119,9 @@ def run_game():
 
         if check_collision(cactus_arr):
             pygame.mixer.music.stop()
-            pygame.mixer.Sound.play(fall_sound)
-            game = False
+            # pygame.mixer.Sound.play(fall_sound)
+            if not check_health():
+                game = False
 
         pygame.display.update()
         clock.tick(70)
@@ -291,6 +293,7 @@ def check_collision(barriers):
                             return True
         return False
 
+
 def count_scores(barriers):
     global scores, max_above
     above_cactus = 0
@@ -344,11 +347,24 @@ def show_health():
         x += 40
         show += 1
 
+
+def check_health():
+    global health
+    health -= 1
+    if health == 0:
+        pygame.mixer.Sound.play(loss_sound)
+        return False
+    else:
+        pygame.mixer.Sound.play(fall_sound)
+        return True
+
+
 while run_game():
     scores = 0
     make_jump = False
     jump_counter = 30
     usr_y = display_height - usr_height - 100
+    health = 2
 pygame.quit()
 quit()
 
