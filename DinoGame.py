@@ -110,7 +110,7 @@ def run_game():
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
-        show_health()
+
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
@@ -120,8 +120,10 @@ def run_game():
         if check_collision(cactus_arr):
             pygame.mixer.music.stop()
             # pygame.mixer.Sound.play(fall_sound)
-            if not check_health():
-                game = False
+            # if not check_health():
+            game = False
+
+        show_health()
 
         pygame.display.update()
         clock.tick(70)
@@ -280,33 +282,57 @@ def check_collision(barriers):
                 if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
                     if check_health():
                         object_return(barriers, barrier)
+                        return False
                     else:
                         return True
-
             elif jump_counter >= 0:
                 if usr_y + usr_height - 5 >= barrier.y:
                     if barrier.x <= usr_x + usr_width - 40 <= barrier.x + barrier.width:
-                        return True
+                        if check_health():
+                            object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
             else:
                 if usr_y + usr_height - 10 >= barrier.y:
                     if barrier.x <= usr_x <= barrier.x + barrier.width:
-                        return True
+                        if check_health():
+                            object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
         else:
             if not make_jump:
                 if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
-                    return True
+                    if check_health():
+                        object_return(barriers, barrier)
+                        return False
+                    else:
+                        return True
             elif jump_counter == 10:
                 if usr_y + usr_height - 5 >= barrier.y:
                     if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
-                        return True
+                        if check_health():
+                            object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
             elif jump_counter >= -1:
                 if usr_y + usr_height - 5 >= barrier.y:
                     if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
-                        return True
+                        if check_health():
+                            object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
                 else:
                     if usr_y + usr_height - 10 >= barrier.y:
                         if barrier.x <= usr_x + 5 <= barrier.x + barrier.width:
-                            return True
+                            if check_health():
+                                object_return(barriers, barrier)
+                                return False
+                            else:
+                                return True
         return False
 
 
