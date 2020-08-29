@@ -196,6 +196,7 @@ def draw_array(array):
             cactus.return_self(radius, height, width, img)
 
 
+
 def open_random_objects():
     choice = random.randrange(0, 2)
     img_of_stone = stone_img[choice]
@@ -265,11 +266,21 @@ def check_collision(barriers):
     for barrier in barriers:
         if barrier.y == 449:  # Little cactus
             if not make_jump:
-                if barrier.x <= usr_x + usr_width - 35 <= barrier.x - barrier.width:
+                if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
+                    radius = find_radius(barriers)
+
+                    choice = random.randrange(0, 3)
+                    img = cactus_img[choice]
+                    width = cactus_option[choice * 2]
+                    height = cactus_option[choice * 2 + 1]
+
+                    barrier.return_self(radius, height, width, img)
+                else:
                     return True
+
             elif jump_counter >= 0:
                 if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
+                    if barrier.x <= usr_x + usr_width - 40 <= barrier.x + barrier.width:
                         return True
             else:
                 if usr_y + usr_height - 10 >= barrier.y:
