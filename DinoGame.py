@@ -186,15 +186,26 @@ def draw_array(array):
     for cactus in array:
         check = cactus.move()
         if not check:
-            radius = find_radius(array)
+            object_return(array, cactus)
+            '''radius = find_radius(array)
 
             choice = random.randrange(0, 3)
             img = cactus_img[choice]
             width = cactus_option[choice * 2]
             height = cactus_option[choice * 2 + 1]
 
-            cactus.return_self(radius, height, width, img)
+            cactus.return_self(radius, height, width, img)'''
 
+
+def object_return(objects, obj):
+    radius = find_radius(objects)
+
+    choice = random.randrange(0, 3)
+    img = cactus_img[choice]
+    width = cactus_option[choice * 2]
+    height = cactus_option[choice * 2 + 1]
+
+    obj.return_self(radius, height, width, img)
 
 
 def open_random_objects():
@@ -205,7 +216,7 @@ def open_random_objects():
     img_of_cloud = cloud_img[choice]
 
     stone = Object(display_width, display_height - 80, 10, img_of_stone, 4)
-    cloud = Object(display_width,  80, 70, img_of_cloud, 2)
+    cloud = Object(display_width, 80, 70, img_of_cloud, 2)
 
     return stone, cloud
 
@@ -267,16 +278,10 @@ def check_collision(barriers):
         if barrier.y == 449:  # Little cactus
             if not make_jump:
                 if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
-                    radius = find_radius(barriers)
-
-                    choice = random.randrange(0, 3)
-                    img = cactus_img[choice]
-                    width = cactus_option[choice * 2]
-                    height = cactus_option[choice * 2 + 1]
-
-                    barrier.return_self(radius, height, width, img)
-                else:
-                    return True
+                    if check_health():
+                        object_return(barriers, barrier)
+                    else:
+                        return True
 
             elif jump_counter >= 0:
                 if usr_y + usr_height - 5 >= barrier.y:
