@@ -90,6 +90,7 @@ def run_game():
     land = pygame.image.load(r'Land.jpg')
 
     stone, cloud = open_random_objects()
+    heart = Object(display_width, 280, 30, heart_img, 4)
 
     while game:
         for event in pygame.event.get():
@@ -100,30 +101,30 @@ def run_game():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             make_jump = True
-        if keys[pygame.K_ESCAPE]:
-            pause()
-
-        if make_jump:
-            jump()
 
         count_scores(cactus_arr)
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
 
-
         draw_array(cactus_arr)
         move_objects(stone, cloud)
 
         draw_dino()
+        heart.move()
+        show_health()
+
+        if keys[pygame.K_ESCAPE]:
+            pause()
+
+        if make_jump:
+            jump()
 
         if check_collision(cactus_arr):
             pygame.mixer.music.stop()
             # pygame.mixer.Sound.play(fall_sound)
             # if not check_health():
             game = False
-
-        show_health()
 
         pygame.display.update()
         clock.tick(70)
