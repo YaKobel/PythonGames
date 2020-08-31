@@ -15,7 +15,7 @@ pygame.mixer.music.set_volume(0.3)
 jump_sound = pygame.mixer.Sound('jump.wav')
 fall_sound = pygame.mixer.Sound('sfx3.wav')
 loss_sound = pygame.mixer.Sound('Bdish.wav')
-
+heart_plus_sound = pygame.mixer.Sound('hp.wav')
 
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
@@ -400,6 +400,11 @@ def check_health():
     else:
         pygame.mixer.Sound.play(fall_sound)
         return True
+
+def hearts_plus(heart):
+    global health, usr_x, usr_y, usr_width, usr_height
+    if usr_x <= heart.x <= usr_x + usr_width:
+        if usr_y <= heart.y <= usr_y + usr_height:
 
 
 while run_game():
