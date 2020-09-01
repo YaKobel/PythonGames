@@ -194,14 +194,6 @@ def draw_array(array):
         check = cactus.move()
         if not check:
             object_return(array, cactus)
-            '''radius = find_radius(array)
-
-            choice = random.randrange(0, 3)
-            img = cactus_img[choice]
-            width = cactus_option[choice * 2]
-            height = cactus_option[choice * 2 + 1]
-
-            cactus.return_self(radius, height, width, img)'''
 
 
 def object_return(objects, obj):
@@ -405,8 +397,14 @@ def check_health():
         pygame.mixer.Sound.play(fall_sound)
         return True
 
+
 def hearts_plus(heart):
     global health, usr_x, usr_y, usr_width, usr_height
+
+    if heart.x <= -heart.width:
+        radius = display_width + random.randrange(500, 1700)
+        heart.return_self(radius, heart.y, heart.width, heart.image)
+
     if usr_x <= heart.x <= usr_x + usr_width:
         if usr_y <= heart.y <= usr_y + usr_height:
             pygame.mixer.Sound.play(heart_plus_sound)
@@ -414,7 +412,7 @@ def hearts_plus(heart):
                 health += 1
 
             radius = display_width + random.randrange(500, 1700)
-            heart.return_self(radius, heart.y, heart.width, heart.image )
+            heart.return_self(radius, heart.y, heart.width, heart.image)
 
 
 while run_game():
