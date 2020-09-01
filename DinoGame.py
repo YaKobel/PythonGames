@@ -115,8 +115,6 @@ def run_game():
         heart.move()
         hearts_plus(heart)
 
-        show_health()
-
         if keys[pygame.K_ESCAPE]:
             pause()
 
@@ -128,6 +126,8 @@ def run_game():
             # pygame.mixer.Sound.play(fall_sound)
             # if not check_health():
             game = False
+
+        show_health()
 
         pygame.display.update()
         clock.tick(70)
