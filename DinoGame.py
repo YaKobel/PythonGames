@@ -15,7 +15,7 @@ pygame.mixer.music.set_volume(0.3)
 jump_sound = pygame.mixer.Sound('jump.wav')
 fall_sound = pygame.mixer.Sound('sfx3.wav')
 loss_sound = pygame.mixer.Sound('Bdish.wav')
-heart_plus_sound = pygame.mixer.Sound('hp.wav')
+heart_plus_sound = pygame.mixer.Sound('sfx3.wav')
 
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
@@ -111,7 +111,10 @@ def run_game():
         move_objects(stone, cloud)
 
         draw_dino()
+
         heart.move()
+        hearts_plus(heart)
+
         show_health()
 
         if keys[pygame.K_ESCAPE]:
@@ -405,6 +408,12 @@ def hearts_plus(heart):
     global health, usr_x, usr_y, usr_width, usr_height
     if usr_x <= heart.x <= usr_x + usr_width:
         if usr_y <= heart.y <= usr_y + usr_height:
+            pygame.mixer.Sound.play(heart_plus_sound)
+            if health < 5:
+                health += 1
+
+            radius = display_width + random.randrange(500, 1700)
+            heart.return_self(radius, heart.y, heart.width, heart.image )
 
 
 while run_game():
