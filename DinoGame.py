@@ -112,11 +112,12 @@ def run_game():
 
         draw_dino()
 
+        if keys[pygame.K_ESCAPE]:
+            pause()
+
         heart.move()
         hearts_plus(heart)
 
-        if keys[pygame.K_ESCAPE]:
-            pause()
 
         if make_jump:
             jump()
