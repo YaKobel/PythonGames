@@ -59,6 +59,18 @@ class Object:
         self.image = image
         display.blit(self.image, (self.x, self.y))
 
+class Button:
+    def __init__(self, width, height, inactive_color, active_color):
+        self.width = width
+        self.height = height
+        self.inactive_color = inactive_color
+        self.active_color = active_color
+
+    def draw(self, x, y, message, action=None):
+        mouse = pygame.mouse.get_pos()
+
+
+
 
 usr_width = 60
 usr_height = 100
