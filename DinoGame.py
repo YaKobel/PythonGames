@@ -16,6 +16,7 @@ jump_sound = pygame.mixer.Sound('jump.wav')
 fall_sound = pygame.mixer.Sound('sfx3.wav')
 loss_sound = pygame.mixer.Sound('Bdish.wav')
 heart_plus_sound = pygame.mixer.Sound('sfx3.wav')
+button_sound = pygame.mixer.Sound('button.wav')
 
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
@@ -68,7 +69,18 @@ class Button:
 
     def draw(self, x, y, message, action=None):
         mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
 
+    if x < mouse[0] < x + self.width:
+        if t < mouse[0] < y + self.height:
+            pygame.draw.rect(display, (23, 204, 58), (x, y, self.width, self.height))
+
+            if click[0] == 1:
+                pygame.mixer.Sound.play(button_sound)
+                pygame.time.delay(300)
+
+        else:
+            pygame.draw.rect(display, (13, 62, 58), (x, y, self.width, self.height))
 
 
 
