@@ -14,9 +14,9 @@ pygame.mixer.music.set_volume(0.3)
 
 jump_sound = pygame.mixer.Sound('jump.wav')
 fall_sound = pygame.mixer.Sound('sfx3.wav')
-loss_sound = pygame.mixer.Sound('Bdish.wav')
-heart_plus_sound = pygame.mixer.Sound('sfx3.wav')
-button_sound = pygame.mixer.Sound('button.wav')
+loss_sound = pygame.mixer.Sound('gameover.wav')
+heart_plus_sound = pygame.mixer.Sound('sfx10.wav')
+button_sound = pygame.mixer.Sound('sfx11.wav')
 
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
@@ -72,12 +72,13 @@ class Button:
         click = pygame.mouse.get_pressed()
 
     if x < mouse[0] < x + self.width:
-        if t < mouse[0] < y + self.height:
+        if t < mouse[1] < y + self.height:
             pygame.draw.rect(display, (23, 204, 58), (x, y, self.width, self.height))
 
             if click[0] == 1:
                 pygame.mixer.Sound.play(button_sound)
                 pygame.time.delay(300)
+
 
         else:
             pygame.draw.rect(display, (13, 62, 58), (x, y, self.width, self.height))
