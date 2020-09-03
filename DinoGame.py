@@ -60,28 +60,33 @@ class Object:
         self.image = image
         display.blit(self.image, (self.x, self.y))
 
+
 class Button:
-    def __init__(self, width, height, inactive_color, active_color):
+    def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.inactive_color = inactive_color
-        self.active_color = active_color
+        self.inactive_color = (13, 62, 58)
+        self.active_color = (23, 204, 58)
+
 
     def draw(self, x, y, message, action=None):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
     if x < mouse[0] < x + self.width:
-        if t < mouse[1] < y + self.height:
-            pygame.draw.rect(display, (23, 204, 58), (x, y, self.width, self.height))
+        if y < mouse[1] < y + self.height:
+            pygame.draw.rect(display, self.active_clr, (x, y, self.width, self.height))
 
             if click[0] == 1:
                 pygame.mixer.Sound.play(button_sound)
                 pygame.time.delay(300)
-
+                if action is not none:
+                    action()
 
         else:
-            pygame.draw.rect(display, (13, 62, 58), (x, y, self.width, self.height))
+            pygame.draw.rect(display,  self.inactive_clr, (x, y, self.width, self.height))
+
+        print_text(message, x + 10, y + 10)
 
 
 
@@ -116,6 +121,9 @@ def run_game():
 
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
+
+    button = Button(100, 50, )
+
 
     while game:
         for event in pygame.event.get():
