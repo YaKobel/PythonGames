@@ -69,12 +69,11 @@ class Button:
         self.active_color = (23, 204, 58)
 
 
-    def draw(self, x, y, message, action=None):
+    def draw(self, x, y, message, action=None, font_size=30):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
-    if x < mouse[0] < x + self.width:
-        if y < mouse[1] < y + self.height:
+        if x < mouse[0] < x + self.width and y < mouse[1] < y + self.height:
             pygame.draw.rect(display, self.active_clr, (x, y, self.width, self.height))
 
             if click[0] == 1:
@@ -82,11 +81,10 @@ class Button:
                 pygame.time.delay(300)
                 if action is not none:
                     action()
-
         else:
             pygame.draw.rect(display,  self.inactive_clr, (x, y, self.width, self.height))
 
-        print_text(message, x + 10, y + 10)
+        print_text(message, x + 10, y + 10, font_size=font_size)
 
 
 
@@ -122,7 +120,7 @@ def run_game():
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
 
-    button = Button(100, 50, )
+    button = Button(110, 50)
 
 
     while game:
@@ -139,6 +137,8 @@ def run_game():
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
+
+        button.draw(20, 100, 'wow')
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
