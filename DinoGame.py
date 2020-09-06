@@ -87,7 +87,6 @@ class Button:
         print_text(message, x + 10, y + 10, font_size=font_size)
 
 
-
 usr_width = 60
 usr_height = 100
 usr_x = display_width // 3
@@ -107,8 +106,11 @@ scores = 0
 max_scores = 0
 max_above = 0
 
+def show_menu():
+    menu_bckgr = pygame.image.load('test_menu.jpg')
 
-def run_game():
+
+def game_cycle():
     global make_jump
     pygame.mixer.music.play(-1)
 
@@ -448,7 +450,7 @@ def hearts_plus(heart):
             heart.return_self(radius, heart.y, heart.width, heart.image)
 
 
-while run_game():
+while game_cycle():
     scores = 0
     make_jump = False
     jump_counter = 30
