@@ -68,7 +68,6 @@ class Button:
         self.inactive_clr = (13, 62, 58)
         self.active_clr = (23, 204, 58)
 
-
     def draw(self, x, y, message, action=None, font_size=30):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -80,7 +79,11 @@ class Button:
                 pygame.mixer.Sound.play(button_sound)
                 pygame.time.delay(300)
                 if action is not None:
-                    action()
+                    if action == quit:
+                        pygame.quit()
+                        quit()
+                    else:
+                        action()
         else:
             pygame.draw.rect(display,  self.inactive_clr, (x, y, self.width, self.height))
 
@@ -111,6 +114,7 @@ def show_menu():
     menu_bckgr = pygame.image.load('test_menu.jpg')
 
     start_btn = Button(288, 70)
+    quit_btn = Button(120, 70)
 
     show = True
     while show:
@@ -121,6 +125,7 @@ def show_menu():
 
         display.blit(menu_bckgr, (0, 0))
         start_btn.draw(270, 200, 'Start game', start_game, 50)
+        quit_btn.draw(358, 300, 'Quit', quit, 50)
 
         pygame.display.update()
         clock.tick(60)
@@ -476,8 +481,8 @@ def hearts_plus(heart):
             radius = display_width + random.randrange(500, 1700)
             heart.return_self(radius, heart.y, heart.width, heart.image)
 
-show_menu()
 
+show_menu()
 pygame.quit()
 quit()
 
