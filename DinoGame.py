@@ -120,10 +120,21 @@ def show_menu():
                 quit()
 
         display.blit(menu_bckgr, (0, 0))
-        start_btn.draw(270, 200, 'Start game', None, 50)
+        start_btn.draw(270, 200, 'Start game', start_game, 50)
 
         pygame.display.update()
         clock.tick(60)
+
+
+def start_game():
+    global scores, make_jump, jump_counter, usr_y, health
+
+    while game_cycle():
+        scores = 0
+        make_jump = False
+        jump_counter = 30
+        usr_y = display_height - usr_height - 100
+        health = 2
 
 
 def game_cycle():
@@ -467,12 +478,6 @@ def hearts_plus(heart):
 
 show_menu()
 
-while game_cycle():
-    scores = 0
-    make_jump = False
-    jump_counter = 30
-    usr_y = display_height - usr_height - 100
-    health = 2
 pygame.quit()
 quit()
 
