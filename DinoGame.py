@@ -65,8 +65,8 @@ class Button:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.inactive_color = (13, 62, 58)
-        self.active_color = (23, 204, 58)
+        self.inactive_clr = (13, 62, 58)
+        self.active_clr = (23, 204, 58)
 
 
     def draw(self, x, y, message, action=None, font_size=30):
@@ -106,9 +106,11 @@ scores = 0
 max_scores = 0
 max_above = 0
 
+
 def show_menu():
     menu_bckgr = pygame.image.load('test_menu.jpg')
-    start_btn = Button(300, 70)
+
+    start_btn = Button(288, 70)
 
     show = True
     while show:
@@ -118,7 +120,10 @@ def show_menu():
                 quit()
 
         display.blit(menu_bckgr, (0, 0))
-        start_btn.draw(300, 200, 'Start game')
+        start_btn.draw(270, 200, 'Start game', None, 50)
+
+        pygame.display.update()
+        clock.tick(60)
 
 
 def game_cycle():
@@ -460,6 +465,7 @@ def hearts_plus(heart):
             radius = display_width + random.randrange(500, 1700)
             heart.return_self(radius, heart.y, heart.width, heart.image)
 
+show_menu()
 
 while game_cycle():
     scores = 0
