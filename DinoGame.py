@@ -79,12 +79,12 @@ class Button:
             if click[0] == 1:
                 pygame.mixer.Sound.play(button_sound)
                 pygame.time.delay(300)
-                if action is not none:
+                if action is not None:
                     action()
         else:
             pygame.draw.rect(display,  self.inactive_clr, (x, y, self.width, self.height))
 
-        print_text(message, x + 10, y + 10, font_size=font_size)
+        print_text(message=message, x=x+10, y=y+10, font_size=font_size)
 
 
 usr_width = 60
@@ -108,6 +108,17 @@ max_above = 0
 
 def show_menu():
     menu_bckgr = pygame.image.load('test_menu.jpg')
+    start_btn = Button(300, 70)
+
+    show = True
+    while show:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        display.blit(menu_bckgr, (0, 0))
+        start_btn.draw(300, 200, 'Start game')
 
 
 def game_cycle():
