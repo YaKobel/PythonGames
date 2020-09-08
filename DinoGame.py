@@ -113,6 +113,10 @@ max_above = 0
 def show_menu():
     menu_bckgr = pygame.image.load('test_menu.jpg')
 
+    pygame.mixer.music.load('sfx7.wav')
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(-1)
+
     start_btn = Button(288, 70)
     quit_btn = Button(120, 70)
 
@@ -134,6 +138,11 @@ def show_menu():
 def start_game():
     global scores, make_jump, jump_counter, usr_y, health
 
+    pygame.mixer.music.load('sfx7.wav')
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(-1)
+
+
     while game_cycle():
         scores = 0
         make_jump = False
@@ -144,7 +153,6 @@ def start_game():
 
 def game_cycle():
     global make_jump
-    pygame.mixer.music.play(-1)
 
     game = True
     cactus_arr = []
