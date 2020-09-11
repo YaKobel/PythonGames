@@ -185,7 +185,7 @@ def game_cycle():
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
 
-    button = Button(110, 50) # were
+    # button = Button(110, 50) # were
     all_btn_bullets = []
 
     while game:
@@ -203,7 +203,7 @@ def game_cycle():
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
 
-        button.draw(20, 100, 'wow')  # were
+        # button.draw(20, 100, 'wow')  # were
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
@@ -215,6 +215,7 @@ def game_cycle():
 
         if not cooldown:
             if keys[pygame.K_x]:
+                pygame.mixer.Sound.play(button_sound)
                 all_btn_bullets.append(Bullet(usr_x + usr_width, usr_y + 28))
                 cooldown = 50
         else:
