@@ -94,6 +94,22 @@ class Button:
         print_text(message=message, x=x+10, y=y+10, font_size=font_size)
 
 
+class Bullet:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.speed = 8
+
+    def move(self):
+        self.x += self.speed
+        if self.x <= display_width:
+            display.blit(bullet_img, (self.x, self.y))
+            return True
+        else:
+            return False
+
+
+
 usr_width = 60
 usr_height = 100
 usr_x = display_width // 3
@@ -166,8 +182,8 @@ def game_cycle():
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
 
-    button = Button(110, 50)
-
+    # button = Button(110, 50)
+    all_btn_bullets = []
 
     while game:
         for event in pygame.event.get():
