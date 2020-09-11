@@ -17,6 +17,7 @@ fall_sound = pygame.mixer.Sound('sfx3.wav')
 loss_sound = pygame.mixer.Sound('gameover.wav')
 heart_plus_sound = pygame.mixer.Sound('sfx10.wav')
 button_sound = pygame.mixer.Sound('sfx11.wav')
+bullet_sound = pygame.mixer.Sound('sfx5.wav')
 
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
@@ -32,6 +33,9 @@ dino_img = [pygame.image.load('Dino0.png'), pygame.image.load('Dino1.png'), pyga
 
 heart_img = pygame.image.load('heart.png')
 heart_img = pygame.transform.scale(heart_img, (30, 30))
+
+bullet_img = pygame.image.load('shot.png')
+bullet_img = pygame.transform.scale(bullet_img, (22, 5))
 
 img_counter = 0
 health = 5
