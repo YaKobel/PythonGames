@@ -130,6 +130,8 @@ scores = 0
 max_scores = 0
 max_above = 0
 
+cooldown = 0
+
 
 def show_menu():
     menu_bckgr = pygame.image.load('test_menu.jpg')
@@ -157,7 +159,7 @@ def show_menu():
 
 
 def start_game():
-    global scores, make_jump, jump_counter, usr_y, health
+    global scores, make_jump, jump_counter, usr_y, health, cooldown
 
     pygame.mixer.music.load('sfx7.wav')
     pygame.mixer.music.set_volume(0.3)
@@ -169,10 +171,11 @@ def start_game():
         jump_counter = 30
         usr_y = display_height - usr_height - 100
         health = 2
+        cooldown = 0
 
 
 def game_cycle():
-    global make_jump
+    global make_jump, cooldown
 
     game = True
     cactus_arr = []
@@ -210,8 +213,13 @@ def game_cycle():
         if keys[pygame.K_ESCAPE]:
             pause()
 
-        if keys[pygame.K_x]:
-            all_btn_bullets.append(Bullet(usr_x + usr_width, usr_y + 28))
+        if not cooldown:
+            if keys[pygame.K_x]:
+                all_btn_bullets.append(Bullet(usr_x + usr_width, usr_y + 28))
+                cooldown = 50
+        else:
+            print_text('Cooldown time: ' + str(cooldown // 10), 482, 40)
+            cooldown -= 1
 
         for bullet in all_btn_bullets:
             if not bullet.move():
@@ -224,7 +232,7 @@ def game_cycle():
             jump()
 
         if check_collision(cactus_arr):
-            pygame.mixer.music.stop()
+            # pygame.mixer.music.stop()
             # pygame.mixer.Sound.play(fall_sound)
             # if not check_health():
             game = False
