@@ -27,6 +27,8 @@ cactus_option = [69, 449, 37, 410, 40, 420]
 
 stone_img = [pygame.image.load('Stone0.png'), pygame.image.load('Stone1.png')]
 cloud_img = [pygame.image.load('Cloud0.png'), pygame.image.load('Cloud1.png')]
+cloud_img[0] = pygame.transform.scale(cloud_img[0], (93, 51))
+cloud_img[1] = pygame.transform.scale(cloud_img[1], (120, 56))
 
 dino_img = [pygame.image.load('Dino0.png'), pygame.image.load('Dino1.png'), pygame.image.load('Dino2.png'),
             pygame.image.load('Dino3.png'), pygame.image.load('Dino4.png')]
@@ -35,10 +37,10 @@ heart_img = pygame.image.load('heart.png')
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 
 bullet_img = pygame.image.load('shot.png')
-bullet_img = pygame.transform.scale(bullet_img, (22, 5))
+bullet_img = pygame.transform.scale(bullet_img, (30, 9))
 
 img_counter = 0
-health = 5
+health = 2
 
 
 class Object:
@@ -69,7 +71,7 @@ class Button:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.inactive_clr = (13, 62, 58)
+        self.inactive_clr = (13, 162, 58)
         self.active_clr = (23, 204, 58)
 
     def draw(self, x, y, message, action=None, font_size=30):
@@ -107,7 +109,6 @@ class Bullet:
             return True
         else:
             return False
-
 
 
 usr_width = 60
@@ -162,7 +163,6 @@ def start_game():
     pygame.mixer.music.set_volume(0.3)
     pygame.mixer.music.play(-1)
 
-
     while game_cycle():
         scores = 0
         make_jump = False
@@ -182,7 +182,7 @@ def game_cycle():
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
 
-    # button = Button(110, 50)
+    button = Button(110, 50) # were
     all_btn_bullets = []
 
     while game:
@@ -200,7 +200,7 @@ def game_cycle():
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
 
-        button.draw(20, 100, 'wow')
+        button.draw(20, 100, 'wow')  # were
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
@@ -210,9 +210,15 @@ def game_cycle():
         if keys[pygame.K_ESCAPE]:
             pause()
 
+        if keys[pygame.K_x]:
+            all_btn_bullets.append(Bullet(usr_x + usr_width, usr_y + 28))
+
+        for bullet in all_btn_bullets:
+            if not bullet.move():
+                all_btn_bullets.remove(bullet)
+
         heart.move()
         hearts_plus(heart)
-
 
         if make_jump:
             jump()
