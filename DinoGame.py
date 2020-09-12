@@ -100,15 +100,38 @@ class Bullet:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.speed = 8
+        self.speed_x = 8
+        self.speed_y = 0
+        self.dest_x = 0
+        self.dest_y = 0
 
     def move(self):
-        self.x += self.speed
+        self.x += self.speed_x
         if self.x <= display_width:
             display.blit(bullet_img, (self.x, self.y))
             return True
         else:
             return False
+
+    def find_path(self, dest_x, dest_y):
+        self.dest_x = dest_x
+        self.dest_y = dest_y
+
+        delta_x = dest_x + self.x
+        count_up = delta_x // self.speed_x
+        delta_y = self.y - dest_y
+        self.speed_y = dest_y / count_up
+
+    def move_to(self):
+        self.x += self.speed_x
+        self.y += self.speed_y
+
+        if self.x <= self.dest_x and self.y >= self.dest_y:
+            display.blit(bullet_img, (self.x, self.y))
+            return True
+        else:
+            return False
+
 
 
 usr_width = 60
@@ -187,6 +210,7 @@ def game_cycle():
 
     # button = Button(110, 50) # were
     all_btn_bullets = []
+    all_ms_bullets = []
 
     while game:
         for event in pygame.event.get():
@@ -195,6 +219,9 @@ def game_cycle():
                 quit()
 
         keys = pygame.key.get_pressed()
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
         if keys[pygame.K_SPACE]:
             make_jump = True
 
@@ -215,8 +242,15 @@ def game_cycle():
 
         if not cooldown:
             if keys[pygame.K_x]:
-                pygame.mixer.Sound.play(button_sound)
+                pygame.mixer.Sound.play(bullet_sound)
                 all_btn_bullets.append(Bullet(usr_x + usr_width, usr_y + 28))
+                cooldown = 50
+            elif click[0]:
+                pygame.mixer.Sound.play(bullet_sound)
+                add_bullet = Bullet(usr_x + usr_width, usr_y + 28)
+                add_bullet.find_path(mouse[0], mouse[1])
+
+                all_ms_bullets.append(add_bullet)
                 cooldown = 50
         else:
             print_text('Cooldown time: ' + str(cooldown // 10), 482, 40)
@@ -225,6 +259,10 @@ def game_cycle():
         for bullet in all_btn_bullets:
             if not bullet.move():
                 all_btn_bullets.remove(bullet)
+
+        for bullet in all_ms_bullets:
+            if not bullet.move_to():
+                all_ms_bullets.remove(bullet)
 
         heart.move()
         hearts_plus(heart)
