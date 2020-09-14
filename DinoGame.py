@@ -119,14 +119,19 @@ class Bullet:
 
         delta_x = dest_x + self.x
         count_up = delta_x // self.speed_x
-        delta_y = self.y - dest_y
-        self.speed_y = dest_y / count_up
+
+        if self.y >= dest_y:
+            delta_y = self.y - dest_y
+            self.speed_y = delta_y / count_up
+        else:
+            delta_y = dest_y - self.y
+            self.speed_y = - (delta_y / count_up)
 
     def move_to(self):
         self.x += self.speed_x
         self.y += self.speed_y
 
-        if self.x <= display_width and self.y >= 0:
+        if self.x <= self.dest_x: # and self.y >= self.dest_y  :
             display.blit(bullet_img, (self.x, self.y))
             return True
         else:
