@@ -131,12 +131,14 @@ class Bullet:
         self.x += self.speed_x
         self.y += self.speed_y
 
-        if self.x <= self.dest_x: # and self.y >= self.dest_y  :
+        if self.x <= display_width and self.y >= 0:
             display.blit(bullet_img, (self.x, self.y))
             return True
         else:
             return False
 
+class Bird:
+    def __init__(self):
 
 
 usr_width = 60
