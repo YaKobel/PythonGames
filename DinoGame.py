@@ -33,6 +33,9 @@ cloud_img[1] = pygame.transform.scale(cloud_img[1], (120, 56))
 dino_img = [pygame.image.load('Dino0.png'), pygame.image.load('Dino1.png'), pygame.image.load('Dino2.png'),
             pygame.image.load('Dino3.png'), pygame.image.load('Dino4.png')]
 
+bird_img = [pygame.image.load('Bird0.png'), pygame.image.load('Bird1.png'), pygame.image.load('Bird2.png'),
+            pygame.image.load('Bird3.png'), pygame.image.load('Bird4.png')]
+
 heart_img = pygame.image.load('heart.png')
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 
@@ -138,7 +141,12 @@ class Bullet:
             return False
 
 class Bird:
-    def __init__(self):
+    def __init__(self, x, away_y):
+        self.x = x
+        self.y = away_y
+        self.ay = away_y
+        self.dest_y = 0
+        self.speed = 3
 
 
 usr_width = 60
