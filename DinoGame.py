@@ -147,6 +147,12 @@ class Bird:
         self.ay = away_y
         self.dest_y = 0
         self.speed = 3
+        self.img_count = 0
+        self.cd_hide = 0
+        self.come = True
+        self.go_away = False
+
+
 
 
 usr_width = 60
