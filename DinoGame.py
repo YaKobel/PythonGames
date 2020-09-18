@@ -141,18 +141,42 @@ class Bullet:
             return False
 
 class Bird:
-    def __init__(self, x, away_y):
-        self.x = x
+    def __init__(self, away_y):
+        self.x = random.randrange(550, 730)
         self.y = away_y
         self.ay = away_y
         self.dest_y = 0
         self.speed = 3
+        self.dest_y = self.speed * random.randrange(20, 70)
         self.img_count = 0
         self.cd_hide = 0
         self.come = True
         self.go_away = False
 
+    def draw(self):
+        if self.img_counter == 30:
+            self.img_cnt = 0
 
+        display.blit(bird_img[self.img_cnt // 5], (self.x, self.y))
+
+        if self.come and self.cd_hide == 0:
+            if self.y < self.dest_y:
+                self.y += self.speed
+            else:
+                self.come = False
+                self.go_away = True
+                self.dest_y = self.ay
+        elif self.go_away:
+            if self.y > self.dest_y:
+                self.y -= self.speed
+            else:
+                self.come = True
+                self.go_away = False
+                self.x = random.randrange(550, 730)
+                self.dest_y = self.speed * random.randrange(20, 70)
+                self.cd_hide = 80
+        elif self.cd_hide > 0:
+            self.cd_hide -= 1
 
 
 usr_width = 60
