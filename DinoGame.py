@@ -120,7 +120,7 @@ class Bullet:
         self.dest_x = dest_x
         self.dest_y = dest_y
 
-        delta_x = dest_x + self.x
+        delta_x = dest_x - self.x
         count_up = delta_x // self.speed_x
 
         if self.y >= dest_y:
@@ -140,24 +140,25 @@ class Bullet:
         else:
             return False
 
+
 class Bird:
     def __init__(self, away_y):
         self.x = random.randrange(550, 730)
         self.y = away_y
         self.ay = away_y
-        self.dest_y = 0
         self.speed = 3
         self.dest_y = self.speed * random.randrange(20, 70)
-        self.img_count = 0
+        self.img_cnt = 0
         self.cd_hide = 0
         self.come = True
         self.go_away = False
 
     def draw(self):
-        if self.img_counter == 30:
+        if self.img_cnt == 30:
             self.img_cnt = 0
 
         display.blit(bird_img[self.img_cnt // 5], (self.x, self.y))
+        self.img_cnt += 1
 
         if self.come and self.cd_hide == 0:
             if self.y < self.dest_y:
@@ -257,6 +258,8 @@ def game_cycle():
     all_btn_bullets = []
     all_ms_bullets = []
 
+    bird1 = Bird(-80)
+
     while game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -322,6 +325,8 @@ def game_cycle():
             game = False
 
         show_health()
+
+        bird1.draw()
 
         pygame.display.update()
         clock.tick(70)
