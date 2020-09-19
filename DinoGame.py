@@ -343,6 +343,7 @@ def game_cycle():
         # bird2.draw()
 
         draw_birds(all_birds)
+        check_birds_dmg(all_ms_bullets, all_birds)
 
         pygame.display.update()
         clock.tick(80)
