@@ -158,7 +158,7 @@ class Bird:
             self.img_cnt = 0
 
         display.blit(bird_img[self.img_cnt // 5], (self.x, self.y))
-        self.img_cnt += 1
+        # self.img_cnt += 1
 
         if self.come and self.cd_hide == 0:
             return 1
@@ -168,7 +168,7 @@ class Bird:
             self.cd_hide -= 1
         return 0
 
-    def come(self):
+    def show(self):
         if self.y < self.dest_y:
             self.y += self.speed
         else:
@@ -266,6 +266,9 @@ def game_cycle():
     all_ms_bullets = []
 
     bird1 = Bird(-80)
+    bird2 = Bird(-49)
+
+    all_birds = [bird1, bird2]
 
     while game:
         for event in pygame.event.get():
@@ -333,7 +336,10 @@ def game_cycle():
 
         show_health()
 
-        bird1.draw()
+        # bird1.draw()
+        # bird2.draw()
+
+        draw_birds(all_birds)
 
         pygame.display.update()
         clock.tick(70)
@@ -619,8 +625,14 @@ def hearts_plus(heart):
             radius = display_width + random.randrange(500, 1700)
             heart.return_self(radius, heart.y, heart.width, heart.image)
 
+
 def draw_birds(birds):
     for bird in birds:
+        action = bird.draw()
+        if action == 1:
+            bird.show()
+        elif action == 2:
+            bird.hide()
 
 
 show_menu()
