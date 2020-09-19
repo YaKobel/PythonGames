@@ -342,7 +342,7 @@ def game_cycle():
         draw_birds(all_birds)
 
         pygame.display.update()
-        clock.tick(70)
+        clock.tick(80)
     return game_over()
 
 
@@ -387,7 +387,7 @@ def find_radius(array):
     if maximum < display_width:
         radius = display_width
         if radius - maximum < 50:
-            radius += 250
+            radius += 280
     else:
         radius = maximum
 
@@ -487,7 +487,7 @@ def check_collision(barriers):
     for barrier in barriers:
         if barrier.y == 449:  # Little cactus
             if not make_jump:
-                if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
+                if barrier.x <= usr_x + usr_width - 30 <= barrier.x + barrier.width:
                     if check_health():
                         object_return(barriers, barrier)
                         return False
@@ -495,7 +495,7 @@ def check_collision(barriers):
                         return True
             elif jump_counter >= 0:
                 if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 40 <= barrier.x + barrier.width:
+                    if barrier.x <= usr_x + usr_width - 30 <= barrier.x + barrier.width:
                         if check_health():
                             object_return(barriers, barrier)
                             return False
@@ -511,13 +511,13 @@ def check_collision(barriers):
                             return True
         else:
             if not make_jump:
-                if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
+                if barrier.x <= usr_x + usr_width - 2 <= barrier.x + barrier.width:
                     if check_health():
                         object_return(barriers, barrier)
                         return False
                     else:
                         return True
-            elif jump_counter == 10:
+            elif jump_counter >= 10:
                 if usr_y + usr_height - 5 >= barrier.y:
                     if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
                         if check_health():
@@ -527,20 +527,20 @@ def check_collision(barriers):
                             return True
             elif jump_counter >= -1:
                 if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 35 <= barrier.x + barrier.width:
+                    if barrier.x <= usr_x + usr_width - 30 <= barrier.x + barrier.width:
                         if check_health():
                             object_return(barriers, barrier)
                             return False
                         else:
                             return True
-                else:
-                    if usr_y + usr_height - 10 >= barrier.y:
-                        if barrier.x <= usr_x + 5 <= barrier.x + barrier.width:
-                            if check_health():
-                                object_return(barriers, barrier)
-                                return False
-                            else:
-                                return True
+            else:
+                if usr_y + usr_height - 8 >= barrier.y:
+                    if barrier.x <= usr_x <= barrier.x + barrier.width:
+                        if check_health():
+                            object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
         return False
 
 
