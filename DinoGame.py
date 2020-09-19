@@ -161,23 +161,30 @@ class Bird:
         self.img_cnt += 1
 
         if self.come and self.cd_hide == 0:
-            if self.y < self.dest_y:
-                self.y += self.speed
-            else:
-                self.come = False
-                self.go_away = True
-                self.dest_y = self.ay
+            return 1
         elif self.go_away:
-            if self.y > self.dest_y:
-                self.y -= self.speed
-            else:
-                self.come = True
-                self.go_away = False
-                self.x = random.randrange(550, 730)
-                self.dest_y = self.speed * random.randrange(20, 70)
-                self.cd_hide = 80
+            return  2
         elif self.cd_hide > 0:
             self.cd_hide -= 1
+        return 0
+
+    def come(self):
+        if self.y < self.dest_y:
+            self.y += self.speed
+        else:
+            self.come = False
+            self.go_away = True
+            self.dest_y = self.ay
+
+    def hide(self):
+        if self.y > self.dest_y:
+            self.y -= self.speed
+        else:
+            self.come = True
+            self.go_away = False
+            self.x = random.randrange(550, 730)
+            self.dest_y = self.speed * random.randrange(20, 70)
+            self.cd_hide = 80
 
 
 usr_width = 60
@@ -611,6 +618,9 @@ def hearts_plus(heart):
 
             radius = display_width + random.randrange(500, 1700)
             heart.return_self(radius, heart.y, heart.width, heart.image)
+
+def draw_birds(birds):
+    for bird in birds:
 
 
 show_menu()
