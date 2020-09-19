@@ -637,6 +637,12 @@ def draw_birds(birds):
         elif action == 2:
             bird.hide()
 
+def check_birds_dmg(bullets, birds):
+    for bird in birds:
+        for bullet in bullets:
+            bird.check_dmg(bullet)
+
+
 
 show_menu()
 pygame.quit()
