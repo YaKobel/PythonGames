@@ -145,6 +145,8 @@ class Bird:
     def __init__(self, away_y):
         self.x = random.randrange(550, 730)
         self.y = away_y
+        self.width = 105
+        self.height = 55
         self.ay = away_y
         self.speed = 3
         self.dest_y = self.speed * random.randrange(20, 70)
@@ -163,7 +165,7 @@ class Bird:
         if self.come and self.cd_hide == 0:
             return 1
         elif self.go_away:
-            return  2
+            return 2
         elif self.cd_hide > 0:
             self.cd_hide -= 1
         return 0
@@ -173,7 +175,7 @@ class Bird:
             self.y += self.speed
         else:
             self.come = False
-            self.go_away = True
+            # self.go_away = True
             self.dest_y = self.ay
 
     def hide(self):
@@ -186,6 +188,10 @@ class Bird:
             self.dest_y = self.speed * random.randrange(20, 70)
             self.cd_hide = 80
 
+    def check_dmg(self, bullet):
+        if self.x <= bullet.x <= self.x + self.width:
+            if self.y <= bullet.y <= self.y + self.height:
+                self.go_away = True
 
 usr_width = 60
 usr_height = 100
@@ -261,7 +267,6 @@ def game_cycle():
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
 
-    # button = Button(110, 50) # were
     all_btn_bullets = []
     all_ms_bullets = []
 
@@ -287,8 +292,6 @@ def game_cycle():
 
         display.blit(land, (0, 0))
         print_text('Scores: ' + str(scores), 600, 10)
-
-        # button.draw(20, 100, 'wow')  # were
 
         draw_array(cactus_arr)
         move_objects(stone, cloud)
