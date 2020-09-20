@@ -154,6 +154,8 @@ class Bird:
         self.cd_hide = 0
         self.come = True
         self.go_away = False
+        self.cd_shoot = 0
+        self.all_bullets = []
 
     def draw(self):
         if self.img_cnt == 30:
@@ -168,6 +170,7 @@ class Bird:
             return 2
         elif self.cd_hide > 0:
             self.cd_hide -= 1
+
         return 0
 
     def show(self):
@@ -192,6 +195,18 @@ class Bird:
         if self.x <= bullet.x <= self.x + self.width:
             if self.y <= bullet.y <= self.y + self.height:
                 self.go_away = True
+
+    def shoot(self):
+        if not self.cd_shoot:
+            pygame.mixer.Sound.play(bullet_sound)
+            new_bullet = Bullet(self.x, self.y)
+            new_bullet.find_path(usr_x + usr_width // 2, usr_y + usr_height // 2)
+
+            self.all_bullets.append(new_bullet)
+            self.cd_shoot = 200
+        else:
+            self.cd_shoot -= 1
+
 
 usr_width = 60
 usr_height = 100
