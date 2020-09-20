@@ -130,11 +130,18 @@ class Bullet:
             delta_y = dest_y - self.y
             self.speed_y = - (delta_y / count_up)
 
-    def move_to(self):
-        self.x += self.speed_x
-        self.y += self.speed_y
+    def move_to(self, reverse=False):
+        if not reverse:
+            self.x += self.speed_x
+            self.y -= self.speed_y
+        else:
+            self.x -= self.speed_x
+            self.y += self.speed_y
 
-        if self.x <= display_width and self.y >= 0:
+        if self.x <= display_width and not reverse:
+            display.blit(bullet_img, (self.x, self.y))
+            return True
+        elif self.x >= 0 and reverse:
             display.blit(bullet_img, (self.x, self.y))
             return True
         else:
@@ -206,6 +213,10 @@ class Bird:
             self.cd_shoot = 200
         else:
             self.cd_shoot -= 1
+
+        for bullet in self.all_bullets:
+            if not bullet.move_to(reverse=True):
+                self.all_bullets.remove(bullet)
 
 
 usr_width = 60
@@ -652,6 +663,8 @@ def draw_birds(birds):
             bird.show()
         elif action == 2:
             bird.hide()
+        else:
+            bird.shoot()
 
 def check_birds_dmg(bullets, birds):
     for bird in birds:
