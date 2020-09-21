@@ -98,6 +98,10 @@ class Button:
 
         print_text(message=message, x=x+10, y=y+10, font_size=font_size)
 
+    def draw_beatiful_rect(self, ms_x, ms_y, x, y):
+        if x <= ms_x <= x + self.width and y <= ms_y <= y + self.height:
+
+
 
 class Bullet:
     def __init__(self, x, y):
