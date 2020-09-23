@@ -76,6 +76,10 @@ class Button:
         self.height = height
         self.inactive_clr = (13, 162, 58)
         self.active_clr = (23, 204, 58)
+        self.draw_effects = False
+        self.clear_effects = False
+        self.rect_h = 10
+        self.rect_w = width
 
     def draw(self, x, y, message, action=None, font_size=30):
         mouse = pygame.mouse.get_pos()
@@ -107,10 +111,19 @@ class Button:
         if self.draw_effects:
             if self.rect_h < self.height:
                 self.rect_h += (self.height - 10) / 40
+            else:
+                if ms_x < x or ms_x > x + self.width or ms_y < y or ms_y > y + self.height:
+                    self.clear_effects = True
+                    self.draw_effects = False
+
+            if self.clear_effects:
+                if self.rect_h > 10:
+                    self.rect_h -= (self.height - 10) / 40
+                else:
+                    self.clear_effects = False
 
         draw_y = y + self.height - self.rect_h
         pygame.draw.rect(display, self.active_clr, (x, draw_y, self.rect_w, self.rect_h))
-
 
 
 class Bullet:
