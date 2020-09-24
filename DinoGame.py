@@ -109,18 +109,18 @@ class Button:
             self.draw_effects = True
 
         if self.draw_effects:
+            if ms_x < x or ms_x > x + self.width or ms_y < y or ms_y > y + self.height:
+                self.clear_effects = True
+                self.draw_effects = False
+
             if self.rect_h < self.height:
                 self.rect_h += (self.height - 10) / 40
-            else:
-                if ms_x < x or ms_x > x + self.width or ms_y < y or ms_y > y + self.height:
-                    self.clear_effects = True
-                    self.draw_effects = False
 
-            if self.clear_effects:
-                if self.rect_h > 10:
-                    self.rect_h -= (self.height - 10) / 40
-                else:
-                    self.clear_effects = False
+        if self.clear_effects and draw_effects:
+            if self.rect_h > 10:
+                self.rect_h -= (self.height - 10) / 40
+            else:
+                self.clear_effects = False
 
         draw_y = y + self.height - self.rect_h
         pygame.draw.rect(display, self.active_clr, (x, draw_y, self.rect_w, self.rect_h))
