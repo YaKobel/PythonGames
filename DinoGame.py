@@ -110,7 +110,7 @@ class Button:
             if self.rect_h < self.height:
                 self.rect_h += (self.height - 10) / 40
 
-        if self.clear_effects and draw_effects:
+        if self.clear_effects and not self.draw_effects:
             if self.rect_h > 10:
                 self.rect_h -= (self.height - 10) / 40
             else:
