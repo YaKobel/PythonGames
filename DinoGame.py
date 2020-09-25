@@ -291,6 +291,8 @@ def show_menu():
         start_btn.draw(270, 200, 'Start game', start_game, 50)
         quit_btn.draw(358, 300, 'Quit', quit, 50)
 
+        draw_mouse()
+
         pygame.display.update()
         clock.tick(60)
 
@@ -400,6 +402,7 @@ def game_cycle():
         draw_birds(all_birds)
         check_birds_dmg(all_ms_bullets, all_birds)
 
+        draw_mouse()
         pygame.display.update()
         clock.tick(80)
     return game_over()
@@ -711,7 +714,16 @@ def draw_mouse():
         need_draw_click = True
 
     if need_draw_click:
-        if mouse_counter
+        draw_x = mouse[0] - mouse_size[mouse_counter] // 2
+        draw_y = mouse[1] - mouse_size[mouse_counter] // 2
+
+        display.blit(light_img[mouse_counter], (draw_x, draw_y))
+        mouse_counter += 1
+
+        if mouse_counter == 10:
+            mouse_counter = 0
+            need_draw_click = False
+
 
 
 
