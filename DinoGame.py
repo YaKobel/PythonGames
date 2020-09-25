@@ -42,6 +42,12 @@ heart_img = pygame.transform.scale(heart_img, (30, 30))
 bullet_img = pygame.image.load('shot.png')
 bullet_img = pygame.transform.scale(bullet_img, (30, 9))
 
+light_img = [pygame.image.load('sq1.png'), pygame.image.load('sq2.png'), pygame.image.load('sq3.png'),
+             pygame.image.load('sq4.png'), pygame.image.load('sq5.png'), pygame.image.load('sq6.png'),
+             pygame.image.load('sq7.png'), pygame.image.load('sq8.png'), pygame.image.load('sq9.png'),
+             pygame.image.load('sq10.png')]
+
+
 img_counter = 0
 health = 2
 
