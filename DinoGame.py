@@ -708,14 +708,14 @@ def draw_mouse():
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
 
-    mouse_size = [32]
+    mouse_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
 
     if click[0] or click[1]:
         need_draw_click = True
 
     if need_draw_click:
-        draw_x = mouse[0] # - mouse_size[mouse_counter] // 2
-        draw_y = mouse[1] # - mouse_size[mouse_counter] // 2
+        draw_x = mouse[0] - mouse_size[mouse_counter] // 2
+        draw_y = mouse[1] - mouse_size[mouse_counter] // 2
 
         display.blit(light_img[mouse_counter], (draw_x, draw_y))
         mouse_counter += 1
