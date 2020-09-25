@@ -267,6 +267,8 @@ max_above = 0
 
 cooldown = 0
 
+mouse_counter = 0
+need_draw_click = False
 
 def show_menu():
     menu_bckgr = pygame.image.load('test_menu.jpg')
@@ -697,6 +699,19 @@ def check_birds_dmg(bullets, birds):
     for bird in birds:
         for bullet in bullets:
             bird.check_dmg(bullet)
+
+def draw_mouse():
+    global mouse_counter, need_draw_click
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    mouse_size = [32]
+
+    if click[0] or click[1]:
+        need_draw_click = True
+
+    if need_draw_click:
+        if mouse_counter
 
 
 
