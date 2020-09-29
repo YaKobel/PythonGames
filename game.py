@@ -291,11 +291,71 @@ class Game:
                                 return True
             return False
 
+    def object_return(self, objects, obj):
+        radius = self.find_radius(objects)
+
+        choice = random.randrange(0, 3)
+        img = cactus_img[choice]
+        width = self.cactus_option[choice * 2]
+        height = self.cactus_option[choice * 2 + 1]
+
+        obj.return_self(radius, height, width, img)
+
+    @staticmethod
+    def find_radius(array):
+        maximum = max(array[0].x, array[1].x, array[2].x)
+
+        if maximum < display_width:
+            radius = display_width
+            if radius - maximum < 50:
+                radius += 280
+        else:
+            radius = maximum
+
+        choice = random.randrange(0, 5)
+        if choice == 0:
+            radius += random.randrange(10, 15)
+        else:
+            radius += random.randrange(250, 400)
+
+        return radius
+
+    @staticmethod
+    def open_random_objects():
+        choice = random.randrange(0, 2)
+        img_of_stone = stone_img[choice]
+
+        choice = random.randrange(0, 2)
+        img_of_cloud = cloud_img[choice]
+
+        stone = Object(display_width, display_height - 80, 10, img_of_stone, 4)
+        cloud = Object(display_width, 80, 70, img_of_cloud, 2)
+
+        return stone, cloud
+
+    def jump(self):
+        # global usr_y, jump_counter, make_jump
+
+        if self.jump_counter >= -30:
+            if self.jump_counter == 30:
+                pygame.mixer.Sound.play(jump_sound)
+            if self.jump_sound == -26:
+                pygame.mixer.Sound.play(fall_sound)
+
+            p.usr_y -= self.jump_counter / 2.5
+            self.jump_counter -= 1
+        else:
+            self.jump_counter = 30
+            self.make_jump = False
+
+        print("Y = " + str(p.usr_y))
 
 
 
 
 
 
-            # if make_jump:
+
+
+        # if make_jump:
             #     jump()

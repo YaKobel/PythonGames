@@ -4,66 +4,8 @@ import random
 pygame.init()
 
 
-def jump():
-    global usr_y, jump_counter, make_jump
-    if jump_counter >= -30:
-        if jump_counter == 30:
-            pygame.mixer.Sound.play(jump_sound)
-        if jump_sound == -26:
-            pygame.mixer.Sound.play(fall_sound)
-
-        usr_y -= jump_counter / 2.5
-        jump_counter -= 1
-    else:
-        jump_counter = 30
-        make_jump = False
 
 
-
-
-def find_radius(array):
-    maximum = max(array[0].x, array[1].x, array[2].x)
-
-    if maximum < display_width:
-        radius = display_width
-        if radius - maximum < 50:
-            radius += 280
-    else:
-        radius = maximum
-
-    choice = random.randrange(0, 5)
-    if choice == 0:
-        radius += random.randrange(10, 15)
-    else:
-        radius += random.randrange(250, 400)
-
-    return radius
-
-
-
-
-def object_return(objects, obj):
-    radius = find_radius(objects)
-
-    choice = random.randrange(0, 3)
-    img = cactus_img[choice]
-    width = cactus_option[choice * 2]
-    height = cactus_option[choice * 2 + 1]
-
-    obj.return_self(radius, height, width, img)
-
-
-def open_random_objects():
-    choice = random.randrange(0, 2)
-    img_of_stone = stone_img[choice]
-
-    choice = random.randrange(0, 2)
-    img_of_cloud = cloud_img[choice]
-
-    stone = Object(display_width, display_height - 80, 10, img_of_stone, 4)
-    cloud = Object(display_width, 80, 70, img_of_cloud, 2)
-
-    return stone, cloud
 
 
 def move_objects(stone, cloud):
