@@ -1,5 +1,5 @@
 import random
-from sound import *
+from sounds import *
 from bullet import *
 
 

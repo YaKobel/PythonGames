@@ -1,4 +1,4 @@
-from sound import *
+from sounds import *
 from effects import *
 
 
