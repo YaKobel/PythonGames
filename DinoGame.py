@@ -15,10 +15,6 @@ cactus_option = [69, 449, 37, 410, 40, 420]
 img_counter = 0
 health = 2
 
-
-
-
-
 cactus_width = 20
 cactus_height = 70
 cactus_x = display_width - 50
@@ -36,9 +32,7 @@ cooldown = 0
 
 
 def show_menu():
-
-
-    pygame.mixer.music.load('sfx7.wav')
+    pygame.mixer.music.load('Sounds/sfx7.wav')
     pygame.mixer.music.set_volume(0.3)
     pygame.mixer.music.play(-1)
 
@@ -464,10 +458,6 @@ def check_birds_dmg(bullets, birds):
     for bird in birds:
         for bullet in bullets:
             bird.check_dmg(bullet)
-
-
-
-
 
 
 show_menu()
