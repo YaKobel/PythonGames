@@ -14,15 +14,15 @@ class Game:
         pygame.mixer.music.load('background.mp3')
         pygame.mixer.music.set_volume(0.3)
 
-        cactus_option = [69, 449, 37, 410, 40, 420]
-        img_counter = 0
-        health = 2
-        make_jump = False
-        jump_counter = 30
-        scores = 0
-        max_scores = 0
-        max_above = 0
-        cooldown = 0
+        self.cactus_option = [69, 449, 37, 410, 40, 420]
+        self.img_counter = 0
+        self.health = 2
+        self.make_jump = False
+        self.jump_counter = 30
+        self.scores = 0
+        self.max_scores = 0
+        self.max_above = 0
+        self.cooldown = 0
 
     def show_menu(self):
         pygame.mixer.music.load('Sounds/sfx7.wav')
@@ -59,7 +59,7 @@ class Game:
             self.scores = 0
             self.make_jump = False
             self.jump_counter = 30
-            self.usr_y = display_height - usr_height - 100
+            p.usr_y = p.display_height - p.usr_height - 100
             self.health = 2
             self.cooldown = 0
 
@@ -68,7 +68,7 @@ class Game:
         cactus_arr = []
         create_cactus_arr(cactus_arr)
 
-        stone, cloud = open_random_objects()
+        stone, cloud = self.open_random_objects()
         heart = Object(display_width, 280, 30, heart_img, 4)
 
         all_btn_bullets = []
@@ -90,36 +90,39 @@ class Game:
             click = pygame.mouse.get_pressed()
 
             if keys[pygame.K_SPACE]:
-                make_jump = True
+                self.make_jump = True
 
-            count_scores(cactus_arr)
+            if self.make_jump:
+                self.jump()
+
+            self.count_scores(cactus_arr)
 
             display.blit(land, (0, 0))
-            print_text('Scores: ' + str(scores), 600, 10)
+            print_text('Scores: ' + str(self.scores), 600, 10)
 
-            draw_array(cactus_arr)
-            move_objects(stone, cloud)
+            self.draw_array(cactus_arr)
+            self.move_objects(stone, cloud)
 
-            draw_dino()
+            self.draw_dino()
 
             if keys[pygame.K_ESCAPE]:
-                pause()
+                self.pause()
 
-            if not cooldown:
+            if not self.cooldown:
                 if keys[pygame.K_x]:
                     pygame.mixer.Sound.play(bullet_sound)
-                    all_btn_bullets.append(Bullet(usr_x + usr_width, usr_y + 28))
-                    cooldown = 50
+                    all_btn_bullets.append(Bullet(p.usr_x + p.usr_width, p.usr_y + 28))
+                    self.cooldown = 50
                 elif click[0]:
                     pygame.mixer.Sound.play(bullet_sound)
-                    add_bullet = Bullet(usr_x + usr_width, usr_y + 28)
+                    add_bullet = Bullet(p.usr_x + p.usr_width, p.usr_y + 28)
                     add_bullet.find_path(mouse[0], mouse[1])
 
                     all_ms_bullets.append(add_bullet)
-                    cooldown = 50
+                    self.cooldown = 50
             else:
-                print_text('Cooldown time: ' + str(cooldown // 10), 482, 40)
-                cooldown -= 1
+                print_text('Cooldown time: ' + str(self.cooldown // 10), 482, 40)
+                self.cooldown -= 1
 
             for bullet in all_btn_bullets:
                 if not bullet.move():
@@ -130,26 +133,169 @@ class Game:
                     all_ms_bullets.remove(bullet)
 
             heart.move()
-            hearts_plus(heart)
+            self.hearts_plus(heart)
 
-            if make_jump:
-                jump()
-
-            if check_collision(cactus_arr):
+            if self.check_collision(cactus_arr):
                 # pygame.mixer.music.stop()
                 # pygame.mixer.Sound.play(fall_sound)
                 # if not check_health():
                 game = False
 
-            show_health()
+            self.show_health()
 
             # bird1.draw()
             # bird2.draw()
 
-            draw_birds(all_birds)
-            check_birds_dmg(all_ms_bullets, all_birds)
+            self.draw_birds(all_birds)
+            self.check_birds_dmg(all_ms_bullets, all_birds)
 
             draw_mouse()
             pygame.display.update()
             clock.tick(80)
-        return game_over()
+        return self.game_over()
+
+    def game_over(self):
+        if self.scores > self.max_scores:
+            self.max_scores = self.scores
+
+        stopped = True
+        while stopped:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+            print_text('Game Over. Press Enter to play again, Esc to exit', 50, 300)
+            print_text('Max Scores: ' + str(self.max_scores), 300, 350)
+
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RETURN]:
+                return False
+            if keys[pygame.K_ESCAPE]:
+                return False
+
+            pygame.display.update()
+            clock.tick(15)
+
+    @staticmethod
+    def pause():
+        paused = True
+        pygame.mixer.music.pause()
+
+        while paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+            print_text('Paused. Press enter to continue', 160, 300)
+
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RETURN]:
+                paused = False
+
+            pygame.display.update()
+            clock.tick(15)
+
+        pygame.mixer.music.unpause()
+
+    def draw_dino(self):
+        if self.img_counter == 25:
+            self.img_counter = 0
+
+        display.blit(dino_img[self.img_counter // 5], (usr_x, usr_y))
+        self.img_counter += 1
+
+    def create_cactus_arr(self, array):
+        choice = random.randrange(0, 3)
+        img = cactus_img[choice]
+        width = self.cactus_option[choice * 2]
+        height = self.cactus_option[choice * 2 + 1]
+        array.append(Object(display_width + 20, height, width, img, 4))
+
+        choice = random.randrange(0, 3)
+        img = cactus_img[choice]
+        width = self.cactus_option[choice * 2]
+        height = self.cactus_option[choice * 2 + 1]
+        array.append(Object(display_width + 300, height, width, img, 4))
+
+        choice = random.randrange(0, 3)
+        img = cactus_img[choice]
+        width = self.cactus_option[choice * 2]
+        height = self.cactus_option[choice * 2 + 1]
+        array.append(Object(display_width + 600, height, width, img, 4))
+
+    def draw_array(self, array):
+        for cactus in array:
+            check = cactus.move()
+            if not check:
+                self.object_return(array, cactus)
+
+    def check_collision(self, barriers):
+        for barrier in barriers:
+            if barrier.y == 449:  # Little cactus
+                if not self.make_jump:
+                    if barrier.x <= p.usr_x + p.usr_width - 30 <= barrier.x + barrier.width:
+                        if self.check_health():
+                            self.object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
+                elif self.jump_counter >= 0:
+                    if p.usr_y + p.usr_height - 5 >= barrier.y:
+                        if barrier.x <= p.usr_x + p.usr_width - 30 <= barrier.x + barrier.width:
+                            if self.check_health():
+                                self.object_return(barriers, barrier)
+                                return False
+                            else:
+                                return True
+                else:
+                    if p.usr_y + p.usr_height - 10 >= barrier.y:
+                        if barrier.x <= p.usr_x <= barrier.x + barrier.width:
+                            if self.check_health():
+                                self.object_return(barriers, barrier)
+                                return False
+                            else:
+                                return True
+            else:
+                if not self.make_jump:
+                    if barrier.x <= p.usr_x + p.usr_width - 2 <= barrier.x + barrier.width:
+                        if self.check_health():
+                            self.object_return(barriers, barrier)
+                            return False
+                        else:
+                            return True
+                elif self.jump_counter >= 10:
+                    if p.usr_y + p.usr_height - 5 >= barrier.y:
+                        if barrier.x <= p.usr_x + p.usr_width - 5 <= barrier.x + barrier.width:
+                            if self.check_health():
+                                self.object_return(barriers, barrier)
+                                return False
+                            else:
+                                return True
+                elif self.jump_counter >= -1:
+                    if p.usr_y + p.usr_height - 5 >= barrier.y:
+                        if barrier.x <= p.usr_x + p.usr_width - 30 <= barrier.x + barrier.width:
+                            if self.check_health():
+                                self.object_return(barriers, barrier)
+                                return False
+                            else:
+                                return True
+                else:
+                    if p.usr_y + p.usr_height - 8 >= barrier.y:
+                        if barrier.x <= p.usr_x <= barrier.x + barrier.width:
+                            if self.check_health():
+                                self.object_return(barriers, barrier)
+                                return False
+                            else:
+                                return True
+            return False
+
+
+
+
+
+
+
+            # if make_jump:
+            #     jump()

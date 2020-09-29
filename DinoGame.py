@@ -4,12 +4,6 @@ import random
 pygame.init()
 
 
-
-
-
-
-
-
 def jump():
     global usr_y, jump_counter, make_jump
     if jump_counter >= -30:
@@ -25,24 +19,6 @@ def jump():
         make_jump = False
 
 
-def create_cactus_arr(array):
-    choice = random.randrange(0, 3)
-    img = cactus_img[choice]
-    width = cactus_option[choice * 2]
-    height = cactus_option[choice * 2 + 1]
-    array.append(Object(display_width + 20, height, width, img, 4))
-
-    choice = random.randrange(0, 3)
-    img = cactus_img[choice]
-    width = cactus_option[choice * 2]
-    height = cactus_option[choice * 2 + 1]
-    array.append(Object(display_width + 300, height, width, img, 4))
-
-    choice = random.randrange(0, 3)
-    img = cactus_img[choice]
-    width = cactus_option[choice * 2]
-    height = cactus_option[choice * 2 + 1]
-    array.append(Object(display_width + 600, height, width, img, 4))
 
 
 def find_radius(array):
@@ -64,11 +40,6 @@ def find_radius(array):
     return radius
 
 
-def draw_array(array):
-    for cactus in array:
-        check = cactus.move()
-        if not check:
-            object_return(array, cactus)
 
 
 def object_return(objects, obj):
@@ -109,100 +80,13 @@ def move_objects(stone, cloud):
         cloud.return_self(display_width, random.randrange(10, 200), cloud.width, img_of_cloud)
 
 
-def draw_dino():
-    global img_counter
-    if img_counter == 25:
-        img_counter = 0
-
-    display.blit(dino_img[img_counter // 5], (usr_x, usr_y))
-    img_counter += 1
 
 
 
 
 
-def pause():
-    paused = True
-
-    pygame.mixer.music.pause()
-
-    while paused:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-        print_text('Paused. Press enter to continue', 160, 300)
-
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RETURN]:
-            paused = False
-
-        pygame.display.update()
-        clock.tick(15)
-
-    pygame.mixer.music.unpause()
 
 
-def check_collision(barriers):
-    for barrier in barriers:
-        if barrier.y == 449:  # Little cactus
-            if not make_jump:
-                if barrier.x <= usr_x + usr_width - 30 <= barrier.x + barrier.width:
-                    if check_health():
-                        object_return(barriers, barrier)
-                        return False
-                    else:
-                        return True
-            elif jump_counter >= 0:
-                if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 30 <= barrier.x + barrier.width:
-                        if check_health():
-                            object_return(barriers, barrier)
-                            return False
-                        else:
-                            return True
-            else:
-                if usr_y + usr_height - 10 >= barrier.y:
-                    if barrier.x <= usr_x <= barrier.x + barrier.width:
-                        if check_health():
-                            object_return(barriers, barrier)
-                            return False
-                        else:
-                            return True
-        else:
-            if not make_jump:
-                if barrier.x <= usr_x + usr_width - 2 <= barrier.x + barrier.width:
-                    if check_health():
-                        object_return(barriers, barrier)
-                        return False
-                    else:
-                        return True
-            elif jump_counter >= 10:
-                if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 5 <= barrier.x + barrier.width:
-                        if check_health():
-                            object_return(barriers, barrier)
-                            return False
-                        else:
-                            return True
-            elif jump_counter >= -1:
-                if usr_y + usr_height - 5 >= barrier.y:
-                    if barrier.x <= usr_x + usr_width - 30 <= barrier.x + barrier.width:
-                        if check_health():
-                            object_return(barriers, barrier)
-                            return False
-                        else:
-                            return True
-            else:
-                if usr_y + usr_height - 8 >= barrier.y:
-                    if barrier.x <= usr_x <= barrier.x + barrier.width:
-                        if check_health():
-                            object_return(barriers, barrier)
-                            return False
-                        else:
-                            return True
-        return False
 
 
 def count_scores(barriers):
@@ -224,29 +108,6 @@ def count_scores(barriers):
             max_above = 0
 
 
-def game_over():
-    global scores, max_scores
-    if scores > max_scores:
-        max_scores = scores
-
-    stopped = True
-    while stopped:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-        print_text('Game Over. Press Enter to play again, Esc to exit', 50, 300)
-        print_text('Max Scores: ' + str(max_scores), 300, 350)
-
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RETURN]:
-            return False
-        if keys[pygame.K_ESCAPE]:
-            return False
-
-        pygame.display.update()
-        clock.tick(15)
 
 
 def show_health():
