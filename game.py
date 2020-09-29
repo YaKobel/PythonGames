@@ -66,7 +66,7 @@ class Game:
     def game_cycle(self):
         game = True
         cactus_arr = []
-        create_cactus_arr(cactus_arr)
+        self.create_cactus_arr(cactus_arr)
 
         stone, cloud = self.open_random_objects()
         heart = Object(display_width, 280, 30, heart_img, 4)
@@ -334,8 +334,6 @@ class Game:
         return stone, cloud
 
     def jump(self):
-        # global usr_y, jump_counter, make_jump
-
         if self.jump_counter >= -30:
             if self.jump_counter == 30:
                 pygame.mixer.Sound.play(jump_sound)
@@ -348,14 +346,16 @@ class Game:
             self.jump_counter = 30
             self.make_jump = False
 
-        print("Y = " + str(p.usr_y))
+    @staticmethod
+    def move_objects(stone, cloud):
+        check = stone.move()
+        if not check:
+            choice = random.randrange(0, 2)
+            img_of_stone = stone_img[choice]
+            stone.return_self(display_width, 500 + random.randrange(10, 80), stone.width, img_of_stone)
 
-
-
-
-
-
-
-
-        # if make_jump:
-            #     jump()
+        check = cloud.move()
+        if not check:
+            choice = random.randrange(0, 2)
+            img_of_cloud = cloud_img[choice]
+            cloud.return_self(display_width, random.randrange(10, 200), cloud.width, img_of_cloud)

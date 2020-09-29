@@ -5,32 +5,6 @@ pygame.init()
 
 
 
-
-
-
-def move_objects(stone, cloud):
-    check = stone.move()
-    if not check:
-        choice = random.randrange(0, 2)
-        img_of_stone = stone_img[choice]
-        stone.return_self(display_width, 500 + random.randrange(10, 80), stone.width, img_of_stone)
-
-    check = cloud.move()
-    if not check:
-        choice = random.randrange(0, 2)
-        img_of_cloud = cloud_img[choice]
-        cloud.return_self(display_width, random.randrange(10, 200), cloud.width, img_of_cloud)
-
-
-
-
-
-
-
-
-
-
-
 def count_scores(barriers):
     global scores, max_above
     above_cactus = 0
