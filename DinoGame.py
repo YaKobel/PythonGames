@@ -9,44 +9,12 @@ display_height = 600
 display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Run Dino! Run!')
 
+pygame.display.set_icon(icon)
+
 pygame.mixer.music.load('background.mp3')
 pygame.mixer.music.set_volume(0.3)
 
-jump_sound = pygame.mixer.Sound('jump.wav')
-fall_sound = pygame.mixer.Sound('sfx3.wav')
-loss_sound = pygame.mixer.Sound('gameover.wav')
-heart_plus_sound = pygame.mixer.Sound('sfx10.wav')
-button_sound = pygame.mixer.Sound('sfx11.wav')
-bullet_sound = pygame.mixer.Sound('sfx5.wav')
-
-icon = pygame.image.load('icon.png')
-pygame.display.set_icon(icon)
-
-cactus_img = [pygame.image.load('Cactus0.png'), pygame.image.load('Cactus1.png'), pygame.image.load('Cactus2.png')]
 cactus_option = [69, 449, 37, 410, 40, 420]
-
-stone_img = [pygame.image.load('Stone0.png'), pygame.image.load('Stone1.png')]
-cloud_img = [pygame.image.load('Cloud0.png'), pygame.image.load('Cloud1.png')]
-cloud_img[0] = pygame.transform.scale(cloud_img[0], (93, 51))
-cloud_img[1] = pygame.transform.scale(cloud_img[1], (120, 56))
-
-dino_img = [pygame.image.load('Dino0.png'), pygame.image.load('Dino1.png'), pygame.image.load('Dino2.png'),
-            pygame.image.load('Dino3.png'), pygame.image.load('Dino4.png')]
-
-bird_img = [pygame.image.load('Bird0.png'), pygame.image.load('Bird1.png'), pygame.image.load('Bird2.png'),
-            pygame.image.load('Bird3.png'), pygame.image.load('Bird4.png')]
-
-heart_img = pygame.image.load('heart.png')
-heart_img = pygame.transform.scale(heart_img, (30, 30))
-
-bullet_img = pygame.image.load('shot.png')
-bullet_img = pygame.transform.scale(bullet_img, (30, 9))
-
-light_img = [pygame.image.load('sq1.png'), pygame.image.load('sq2.png'), pygame.image.load('sq3.png'),
-             pygame.image.load('sq4.png'), pygame.image.load('sq5.png'), pygame.image.load('sq6.png'),
-             pygame.image.load('sq7.png'), pygame.image.load('sq8.png'), pygame.image.load('sq9.png'),
-             pygame.image.load('sq10.png')]
-
 
 img_counter = 0
 health = 2
@@ -271,7 +239,7 @@ mouse_counter = 0
 need_draw_click = False
 
 def show_menu():
-    menu_bckgr = pygame.image.load('test_menu.jpg')
+
 
     pygame.mixer.music.load('sfx7.wav')
     pygame.mixer.music.set_volume(0.3)
@@ -319,7 +287,7 @@ def game_cycle():
     game = True
     cactus_arr = []
     create_cactus_arr(cactus_arr)
-    land = pygame.image.load(r'Land.jpg')
+
 
     stone, cloud = open_random_objects()
     heart = Object(display_width, 280, 30, heart_img, 4)
