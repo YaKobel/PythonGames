@@ -3,10 +3,6 @@ import random
 
 pygame.init()
 
-display_width = 800
-display_height = 600
-
-display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Run Dino! Run!')
 
 pygame.display.set_icon(icon)
@@ -190,17 +186,11 @@ class Bird:
                 self.all_bullets.remove(bullet)
 
 
-usr_width = 60
-usr_height = 100
-usr_x = display_width // 3
-usr_y = display_height - usr_height - 100
-
 cactus_width = 20
 cactus_height = 70
 cactus_x = display_width - 50
 cactus_y = display_height - cactus_height - 100
 
-clock = pygame.time.Clock()
 
 make_jump = False
 jump_counter = 30
@@ -211,8 +201,6 @@ max_above = 0
 
 cooldown = 0
 
-mouse_counter = 0
-need_draw_click = False
 
 def show_menu():
 
